@@ -48,9 +48,9 @@ for git_repo in worker_data:
 #define a worker function
 def worker():
     while True:
-               item = q.get()
-               subprocess_cmd("git clone https://github.com/{} &".format(item))
-               q.task_done()
+        item = q.get()
+        subprocess_cmd("git clone https://github.com/{} &".format(item))
+        q.task_done()
     
 cpus = multiprocessing.cpu_count() #Detect the number of CPU cores
 print("Creating %d threads" % cpus)
