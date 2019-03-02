@@ -11,3 +11,7 @@
 ## Goal
 
 - The goal of this program is to quickly pull and install repos from its list
+
+## Usage
+
+```python3 rapid.py```
