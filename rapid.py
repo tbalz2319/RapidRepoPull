@@ -35,10 +35,11 @@ worker_data=["BloodHoundAD/BloodHound.git",
         "codingo/Interlace.git"]
 
 #Function to handle processing of commands        
-def subprocess_cmd(command):
-    process = subprocess.Popen(command,stdout=subprocess.PIPE, shell=False)
-    proc_stdout = process.communicate()[0].strip()
-    print (proc_stdout)
+# def subprocess_cmd(command):
+#    #process = subprocess.Popen(command,stdout=subprocess.PIPE, shell=False)
+#     process = subprocess.Popen(command, shell=False)
+#     proc_stdout = process.communicate()[0].strip()
+#     print (proc_stdout)
 
 #load up a queue with your data, this will handle locking
 q = queue.Queue()
@@ -49,7 +50,7 @@ for git_repo in worker_data:
 def worker():
     while True:
         item = q.get()
-        subprocess_cmd("git clone https://github.com/{} &".format(item))
+        os.system("git clone https://github.com/{} &".format(item))
         q.task_done()
     
 cpus = multiprocessing.cpu_count() #Detect the number of CPU cores
