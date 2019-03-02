@@ -53,7 +53,7 @@ cmd = "git clone https://github.com/{} &"
 def worker():
     while True:
         item = q.get()
-        subprocess.Popen(cmd.format(item))
+        subprocess.Popen(cmd.format(item), shell = True)
         q.task_done()
     
 cpus = multiprocessing.cpu_count() #Detect the number of CPU cores
