@@ -34,13 +34,15 @@ worker_data=["BloodHoundAD/BloodHound.git",
         "1N3/BlackWidow.git",
         "trustedsec/ptf.git",
         "codingo/Interlace.git"]
-        
+
 #Function to handle processing of commands        
 def subprocess_cmd(command):
     process = subprocess.Popen(command,stdout=subprocess.PIPE, shell=True)
     proc_stdout = process.communicate()[0].strip()
     print (proc_stdout)
 
+#Call subprocess_cmd to change to a temp dir to install repos
+subprocess_cmd("mkdir -p temp; cd temp")
 #load up a queue with your data, this will handle locking
 q = queue.Queue()
 for git_repo in worker_data:
