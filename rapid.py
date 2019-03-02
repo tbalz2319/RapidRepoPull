@@ -59,4 +59,5 @@ for i in range(cpus):
       t.daemon = True
       t.start()
  
-q.join() #Block everything until all tasks in queue have completed  
+q.join() #Block everything until all tasks in queue have completed
+print("Program has successfully completed execution")
