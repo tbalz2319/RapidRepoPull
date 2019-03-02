@@ -12,6 +12,14 @@
 
 - The goal of this program is to quickly pull and install repos from its list
 
+## Requirements
+
+- This program was tested with Python version 3.7.2 64-bit
+
 ## Usage
+
+```python3 -m venv venv```
+
+```pip install -r requirements.txt```
 
 ```python3 rapid.py```
