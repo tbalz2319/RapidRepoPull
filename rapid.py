@@ -1,0 +1,74 @@
+#This script has been tested with Python 3.7
+import os
+import sys
+import traceback
+import subprocess
+import queue 
+from queue import Empty
+import threading
+import multiprocessing
+
+worker_data=["BloodHoundAD/BloodHound.git", 
+        "GhostPack/Seatbelt.git", 
+        "GhostPack/SharpUp.git", 
+        "yeyintminthuhtut/Awesome-Red-Teaming.git",
+        "byt3bl33d3r/DeathStar.git", 
+        "byt3bl33d3r/CrackMapExec.git", 
+        "Cn33liz/p0wnedShell.git", 
+        "EmpireProject/Empire.git",
+        "danielmiessler/SecLists.git", 
+        "laramies/theHarvester.git", 
+        "s0md3v/Photon.git", 
+        "commixproject/commix.git", 
+        "emtunc/SlackPirate",
+        "bwall/ExtractHosts.git", 
+        "Grunny/zap-cli.git", 
+        "tevora-threat/PowerView3-Aggressor.git", 
+        "vysecurity/ANGRYPUPPY.git", 
+        "harleyQu1nn/AggressorScripts.git",
+        "bluscreenofjeff/AggressorScripts.git", 
+        "Rev3rseSecurity/WebMap.git",
+        "pavanw3b/sh00t.git",
+        "evyatarmeged/Raccoon.git",
+        "1N3/IntruderPayloads.git",
+        "1N3/BlackWidow.git",
+        "trustedsec/ptf.git"
+        "codingo/Interlace.git"]
+#Function to handle processing of commands        
+def subprocess_cmd(command):
+    process = subprocess.Popen(command,stdout=subprocess.PIPE, shell=True)
+    proc_stdout = process.communicate()[0].strip()
+    print (proc_stdout)
+
+#load up a queue with your data, this will handle locking
+q = queue.Queue()
+for git_repo in worker_data:
+    q.put(git_repo)
+    
+
+#define a worker function
+def worker(queue):
+    queue_full = True
+    while queue_full:
+        try:
+            #get your data off the queue, and do some work
+            git_repo= queue.get(False)
+            subprocess.Popen("git clone https://github.com/{}".format(git_repo), shell=True, stdin=None, stdout=None, stderr=None, close_fds=True).wait()
+
+        except Empty:
+            print ("Queue was empty")
+            queue_full = False
+
+        else:
+            print ("Great news, everything installed correctly!")
+            print ("There are {} repos in the array.".format(str(len(worker_data))))
+            
+        finally:
+            print ("Leaving the try block now")
+            
+
+#create as many threads as you want
+thread_count = 100
+for i in range(thread_count):
+    t = threading.Thread(target=worker, args = (q,))
+    t.start()
