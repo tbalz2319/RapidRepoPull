@@ -27,7 +27,6 @@ worker_data=["BloodHoundAD/BloodHound.git",
         "vysecurity/ANGRYPUPPY.git", 
         "harleyQu1nn/AggressorScripts.git",
         "bluscreenofjeff/AggressorScripts.git", 
-        "Rev3rseSecurity/WebMap.git",
         "pavanw3b/sh00t.git",
         "evyatarmeged/Raccoon.git",
         "1N3/IntruderPayloads.git",
@@ -41,8 +40,6 @@ def subprocess_cmd(command):
     proc_stdout = process.communicate()[0].strip()
     print (proc_stdout)
 
-#Call subprocess_cmd to change to a temp dir to install repos
-subprocess_cmd("mkdir -p temp; cd temp")
 #load up a queue with your data, this will handle locking
 q = queue.Queue()
 for git_repo in worker_data:
