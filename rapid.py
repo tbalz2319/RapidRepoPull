@@ -45,13 +45,12 @@ q = queue.Queue()
 for git_repo in worker_data:
     q.put(git_repo)
     
-
 #define a worker function
-while True:
-          item = q.get()
-          subprocess_cmd("raccoon http://{} &".format(item))
-          subprocess_cmd("git clone https://github.com/{} &".format(git_repo))
-          q.task_done()
+def worker():
+    while True:
+               item = q.get()
+               subprocess_cmd("git clone https://github.com/{} &".format(item))
+               q.task_done()
     
 cpus = multiprocessing.cpu_count() #Detect the number of CPU cores
 print("Creating %d threads" % cpus)
