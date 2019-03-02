@@ -47,28 +47,17 @@ for git_repo in worker_data:
     
 
 #define a worker function
-def worker(queue):
-    queue_full = True
-    while queue_full:
-        try:
-            #get your data off the queue, and do some work
-            git_repo= queue.get(False)
-            subprocess.Popen("git clone https://github.com/{}".format(git_repo), shell=True, stdin=None, stdout=None, stderr=None, close_fds=True).wait()
-
-        except Empty:
-            print ("Queue was empty")
-            queue_full = False
-
-        else:
-            print ("Great news, everything installed correctly!")
-            print ("There are {} repos in the array.".format(str(len(worker_data))))
-            
-        finally:
-            print ("Leaving the try block now")
-            
-
-#create as many threads as you want
-thread_count = 100
-for i in range(thread_count):
-    t = threading.Thread(target=worker, args = (q,))
-    t.start()
+while True:
+          item = q.get()
+          subprocess_cmd("raccoon http://{} &".format(item))
+          subprocess_cmd("git clone https://github.com/{} &".format(git_repo))
+          q.task_done()
+    
+cpus = multiprocessing.cpu_count() #Detect the number of CPU cores
+print("Creating %d threads" % cpus)
+for i in range(cpus):
+      t = threading.Thread(target=worker)
+      t.daemon = True
+      t.start()
+ 
+q.join() #Block everything until all tasks in queue have completed  
