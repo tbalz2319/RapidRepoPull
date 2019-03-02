@@ -1,6 +1,7 @@
 #This script has been tested with Python 3.7
 import os
 import sys
+import shlex
 import traceback
 import subprocess
 import queue 
@@ -45,12 +46,14 @@ worker_data=["BloodHoundAD/BloodHound.git",
 q = queue.Queue()
 for git_repo in worker_data:
     q.put(git_repo)
-    
+
+#command to run inside of while loop
+cmd = "git clone https://github.com/{} &"    
 #define a worker function
 def worker():
     while True:
         item = q.get()
-        os.system("git clone https://github.com/{} &".format(item))
+        os.system(cmd.format(item))
         q.task_done()
     
 cpus = multiprocessing.cpu_count() #Detect the number of CPU cores
