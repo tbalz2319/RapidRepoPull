@@ -52,16 +52,16 @@ cmd = "git clone https://github.com/{} &"
 #define a worker function
 def worker():
     while True:
-        item = q.get()
-        subprocess.Popen(cmd.format(item), shell = True)
-        q.task_done()
+      item = q.get()
+      subprocess.Popen(cmd.format(item), shell = True)
+      q.task_done()
     
 cpus = multiprocessing.cpu_count() #Detect the number of CPU cores
 print("Creating %d threads" % cpus)
 for i in range(cpus):
-      t = threading.Thread(target=worker)
-      t.daemon = True
-      t.start()
+  t = threading.Thread(target=worker)
+  t.daemon = True
+  t.start()
  
 q.join() #Block everything until all tasks in queue have completed
 print("Program has successfully completed execution")
