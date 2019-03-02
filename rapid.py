@@ -36,7 +36,7 @@ worker_data=["BloodHoundAD/BloodHound.git",
 
 #Function to handle processing of commands        
 def subprocess_cmd(command):
-    process = subprocess.Popen(command,stdout=subprocess.PIPE, shell=True)
+    process = subprocess.Popen(command,stdout=subprocess.PIPE, shell=False)
     proc_stdout = process.communicate()[0].strip()
     print (proc_stdout)
 
