@@ -18,8 +18,18 @@
 
 ## Usage
 
+- Create a virtual Python3 environment to run this code
+
 ```python3 -m venv venv```
 
+- Activate the virual enivornment
+
+```source venv/bin/activate```
+
+- Install requirements
+
 ```pip install -r requirements.txt```
+
+- Run program
 
 ```python3 rapid.py```
