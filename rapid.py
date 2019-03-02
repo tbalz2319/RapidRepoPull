@@ -32,8 +32,9 @@ worker_data=["BloodHoundAD/BloodHound.git",
         "evyatarmeged/Raccoon.git",
         "1N3/IntruderPayloads.git",
         "1N3/BlackWidow.git",
-        "trustedsec/ptf.git"
+        "trustedsec/ptf.git",
         "codingo/Interlace.git"]
+        
 #Function to handle processing of commands        
 def subprocess_cmd(command):
     process = subprocess.Popen(command,stdout=subprocess.PIPE, shell=True)
