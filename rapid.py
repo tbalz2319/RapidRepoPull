@@ -9,31 +9,31 @@ from queue import Empty
 import threading
 import multiprocessing
 
-worker_data=["BloodHoundAD/BloodHound.git", 
-        "GhostPack/Seatbelt.git", 
-        "GhostPack/SharpUp.git", 
-        "yeyintminthuhtut/Awesome-Red-Teaming.git",
-        "byt3bl33d3r/DeathStar.git", 
-        "byt3bl33d3r/CrackMapExec.git", 
-        "Cn33liz/p0wnedShell.git", 
-        "EmpireProject/Empire.git",
-        "danielmiessler/SecLists.git", 
-        "laramies/theHarvester.git", 
-        "s0md3v/Photon.git", 
-        "commixproject/commix.git", 
+worker_data=["BloodHoundAD/BloodHound", 
+        "GhostPack/Seatbelt", 
+        "GhostPack/SharpUp", 
+        "yeyintminthuhtut/Awesome-Red-Teaming",
+        "byt3bl33d3r/DeathStar", 
+        "byt3bl33d3r/CrackMapExec", 
+        "Cn33liz/p0wnedShell", 
+        "EmpireProject/Empire",
+        "danielmiessler/SecLists", 
+        "laramies/theHarvester", 
+        "s0md3v/Photon", 
+        "commixproject/commix", 
         "emtunc/SlackPirate",
-        "bwall/ExtractHosts.git", 
-        "Grunny/zap-cli.git", 
-        "tevora-threat/PowerView3-Aggressor.git", 
-        "vysecurity/ANGRYPUPPY.git", 
-        "harleyQu1nn/AggressorScripts.git",
-        "bluscreenofjeff/AggressorScripts.git", 
-        "pavanw3b/sh00t.git",
-        "evyatarmeged/Raccoon.git",
-        "1N3/IntruderPayloads.git",
-        "1N3/BlackWidow.git",
-        "trustedsec/ptf.git",
-        "codingo/Interlace.git"]
+        "bwall/ExtractHosts", 
+        "Grunny/zap-cli", 
+        "tevora-threat/PowerView3-Aggressor", 
+        "vysecurity/ANGRYPUPPY", 
+        "harleyQu1nn/AggressorScripts",
+        "bluscreenofjeff/AggressorScripts", 
+        "pavanw3b/sh00t",
+        "evyatarmeged/Raccoon",
+        "1N3/IntruderPayloads",
+        "1N3/BlackWidow",
+        "trustedsec/ptf",
+        "codingo/Interlace"]
 
 #Function to handle processing of commands        
 def subprocess_cmd(command):
@@ -51,7 +51,7 @@ def worker():
     while True:
       item = q.get()
       #subprocess.Popen(cmd.format(item), shell = True)
-      subprocess_cmd(["/usr/bin/git", "clone", "https://github.com/{}".format(item)])
+      subprocess_cmd(["/usr/bin/git", "clone", "https://github.com/{}.git".format(item)])
       q.task_done()
     
 cpus = multiprocessing.cpu_count() #Detect the available cores on system , similar to nproc
