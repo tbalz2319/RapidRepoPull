@@ -1,7 +1,7 @@
 # RapidRepoPull
 
 ![os](https://img.shields.io/badge/OS-Linux,%20macOS-yellow.svg)
-![rapidrepoinstallver](https://img.shields.io/badge/version-1.0.0-red.svg)
+![rapidrepoinstallver](https://img.shields.io/badge/version-1.1.0-red.svg)
 [![Twitter](https://img.shields.io/badge/twitter-@xtbalz-blue.svg)](https://twitter.com/xtbalz)
 [![CodeFactor](https://www.codefactor.io/repository/github/tbalz2319/rapidrepopull/badge)](https://www.codefactor.io/repository/github/tbalz2319/rapidrepopull)
 
