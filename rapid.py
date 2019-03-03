@@ -28,11 +28,11 @@ worker_data=["BloodHoundAD/BloodHound.git",
         "vysecurity/ANGRYPUPPY.git", 
         "harleyQu1nn/AggressorScripts.git",
         "bluscreenofjeff/AggressorScripts.git", 
-        "pavanw3b/sh00t.git",
-        "evyatarmeged/Raccoon.git",
-        "1N3/IntruderPayloads.git",
-        "1N3/BlackWidow.git",
-        "trustedsec/ptf.git",
+        #"pavanw3b/sh00t.git",
+        #"evyatarmeged/Raccoon.git",
+       # "1N3/IntruderPayloads.git",
+       # "1N3/BlackWidow.git",
+        #"trustedsec/ptf.git",
         "codingo/Interlace.git"]
 
 #Function to handle processing of commands        
@@ -47,8 +47,6 @@ q = queue.Queue()
 for git_repo in worker_data:
     q.put(git_repo)
 
-#command to run inside of while loop
-cmd = "git clone https://github.com/{} &"    
 #define a worker function
 def worker():
     while True:
