@@ -14,6 +14,14 @@
 
 - The goal of this program is to quickly pull and install repos from its list
 
+## Use cases
+
+- Quickly insteall your favorite Security repos on a new system
+
+- Kick off multiple concurrent tasks utilizing Python
+
+- Add remove lists as your see fit to meet your needs
+
 ## Requirements
 
 - This program was tested with Python version 3.7.2 64-bit
@@ -35,3 +43,15 @@
 - Run program
 
     ```python3 rapid.py```
+
+## To do
+
+- Add error handling
+
+- Clean up code
+
+## Contribute
+
+- Code is being cleaned up and refined, there are most likely lots of bugs that need to fixed
+
+- Pull requests welcomed
