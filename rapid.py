@@ -32,8 +32,8 @@ worker_data=["BloodHoundAD/BloodHound.git",
         "evyatarmeged/Raccoon.git",
         "1N3/IntruderPayloads.git",
         "1N3/BlackWidow.git",
-        "trustedsec/ptf.git"]
-        #"codingo/Interlace.git"]
+        "trustedsec/ptf.git",
+        "codingo/Interlace.git"]
 
 #Function to handle processing of commands        
 def subprocess_cmd(command):
@@ -62,4 +62,5 @@ for i in range(cpus):
   t.start()
  
 q.join() #Block everything until all tasks in queue have completed
-print("Program has successfully completed execution")
+print("Program has successfully completed execution ...")
+print("Please check output ...")
