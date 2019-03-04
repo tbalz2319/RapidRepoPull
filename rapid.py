@@ -33,7 +33,7 @@ worker_data=["BloodHoundAD/BloodHound",
         "1N3/IntruderPayloads",
         "1N3/BlackWidow",
         "trustedsec/ptf",
-        "swisskyrepo/PayloadsAllTheThings"
+        "swisskyrepo/PayloadsAllTheThings",
         "codingo/Interlace"]
 
 #Function to handle processing of commands        
@@ -65,3 +65,7 @@ for i in range(cpus):
 q.join() #Blocks everything until all tasks in the queue have completed, then it print the messages below
 print("Program has successfully completed execution ...")
 print("Please check output ...")
+# Display ASCII art from text file below
+with open('ascii.txt', 'r') as f:
+    for line in f:
+        print(line.rstrip())
