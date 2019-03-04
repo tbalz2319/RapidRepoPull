@@ -64,6 +64,8 @@
 
 - Clean up code
 
+- Created install shell script for ease of use
+
 ## Contribute
 
 - Code is being cleaned up and refined, there are most likely lots of bugs that need to fixed
