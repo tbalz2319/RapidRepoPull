@@ -8,7 +8,7 @@
 
 ## Description
 
-- This program uses Python to install multiple repos
+- This program uses Python to clone multiple security related repos using threading and multiprocessing
 
 ## Goal
 
