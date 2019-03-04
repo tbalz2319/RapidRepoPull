@@ -16,7 +16,7 @@
 
 ## Use cases
 
-- Quickly insteall your favorite Security repos on a new system
+- Quickly install your favorite Security repos on a new system
 
 - Kick off multiple concurrent tasks utilizing Python
 
@@ -64,7 +64,7 @@
 
 - Clean up code
 
-- Created install shell script for ease of use
+- Create install shell script for ease of use
 
 ## Contribute
 
