@@ -1,4 +1,12 @@
-# 1.3.2
+# 1.4.0
+
+- Cleaned up readme instructions
+
+- Added Massscn to repo list
+
+- Removed un-needed import library
+
+## 1.3.2
 
 - Multiple code fixes and adding in missing ","
 
