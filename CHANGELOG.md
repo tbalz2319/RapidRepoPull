@@ -1,4 +1,8 @@
-# 1.4.0
+# 1.4.1
+
+- The repo for Windows Exploit Suggester NG has been added
+
+## 1.4.0
 
 - Cleaned up readme instructions
 
