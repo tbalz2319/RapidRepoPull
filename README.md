@@ -30,8 +30,6 @@
 
     ```sudo apt-get install python3-venv```
 
-    ```sudo apt-get install virtualvenv```
-
 - Ensure git is installed (Ubuntu)
 
     ```sudo apt-get install git```
@@ -41,6 +39,10 @@
 - Clone code repo
 
     ```git clone https://github.com/tbalz2319/RapidRepoPull.git```
+
+- Change directory into RapidRepoPull
+
+    ```cd RapidRepoPull```
 
 - Create a virtual Python3 environment to run this code
 
