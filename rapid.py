@@ -1,7 +1,6 @@
 #This script has been tested with Python 3.7.2
 import os
 import sys
-import shlex
 import traceback
 import subprocess
 import queue 
