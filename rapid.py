@@ -33,6 +33,7 @@ worker_data=["BloodHoundAD/BloodHound",
         "1N3/BlackWidow",
         "trustedsec/ptf",
         "swisskyrepo/PayloadsAllTheThings",
+        "robertdavidgraham/masscan"
         "codingo/Interlace"]
 
 #Function to handle processing of commands        
