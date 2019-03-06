@@ -18,9 +18,9 @@
 
 - Quickly install your favorite Security repos on a new system
 
-- Kick off multiple concurrent tasks utilizing Python
+- Kick off multiple concurrent git clone tasks utilizing Python
 
-- Add remove lists as your see fit to meet your needs
+- Add remove repos to the worker_data list as needed in order to address indivudual use case/project needs
 
 ## Requirements
 
