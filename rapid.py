@@ -48,13 +48,12 @@ stop = 0
 #Function to handle processing of commands
 def subprocess_cmd(command):
 
-    lock.acquire()
     name = command[2].split("/")[-1].replace(".git", "")
-    print ("[*] Trying to install {}...".format(name))
 
     process = subprocess.Popen(command, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
     out, err = process.communicate()
 
+    lock.acquire()
     if "fatal" not in err:
         print ("[*] Successfully installed {}\n".format(name))
     else:
