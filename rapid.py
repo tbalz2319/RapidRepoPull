@@ -1,4 +1,3 @@
-#This script has been tested with Python 3.7.2
 import os
 import sys
 import traceback
@@ -52,7 +51,6 @@ for git_repo in worker_data:
 def worker():
     while True:
       item = q.get()
-      #subprocess.Popen(cmd.format(item), shell = True)
       subprocess_cmd(["/usr/bin/git", "clone", "https://github.com/{}.git".format(item)])
       q.task_done()
     
