@@ -59,7 +59,7 @@ def subprocess_cmd(command):
     else:
         try:
             error = str(err, 'utf-8').strip().replace("\n", " ")
-        except:
+        except TypeError:
             error = err.strip().replace("\n", " ")
         print ("[*] Problem occurred while installing {}: {}\n".format(name, error))
     lock.release()
