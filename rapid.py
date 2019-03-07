@@ -54,10 +54,14 @@ def subprocess_cmd(command):
     out, err = process.communicate()
 
     lock.acquire()
-    if "fatal" not in err:
+    if "fatal".encode("utf-8") not in err:
         print ("[*] Successfully installed {}\n".format(name))
     else:
-        print ("[*] Problem occurred while installing {}: {}\n".format(name, err.strip().replace("\n", " ")))
+        try:
+            error = str(err, 'utf-8').strip().replace("\n", " ")
+        except:
+            error = err.strip().replace("\n", " ")
+        print ("[*] Problem occurred while installing {}: {}\n".format(name, error))
     lock.release()
 
 #worker function is defined blow which will perform the work on the worker_data list
