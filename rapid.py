@@ -35,17 +35,16 @@ worker_data=["BloodHoundAD/BloodHound",
         "bitsadmin/wesng",
         "codingo/Interlace"]
 
-#load up a queue with the data from the worker_data list, this will handle locking
+# Load up a queue with the data from the worker_data list, this will handle locking
 q = queue.Queue()
 for git_repo in worker_data:
     q.put(git_repo)
 
-#when acquired by a thread it locks other threads from printing
+# When acquired by a thread it locks other threads from printing
 lock = threading.Lock()
-
 stop = 0
 
-#Function to handle processing of commands
+# Function to handle processing of commands
 def subprocess_cmd(command):
 
     name = command[2].split("/")[-1].replace(".git", "")
@@ -64,9 +63,9 @@ def subprocess_cmd(command):
         print ("[*] Problem occurred while installing {}: {}\n".format(name, error))
     lock.release()
 
-#worker function is defined blow which will perform the work on the worker_data list
+# Worker function is defined below which will perform the work on the worker_data list
 def worker():
-    while not stop:
+    while not stop: 
         item = q.get()
         subprocess_cmd(["/usr/bin/git", "clone", "https://github.com/{}.git".format(item)])
         q.task_done()
@@ -78,6 +77,7 @@ if __name__ == "__main__":
         for line in f:
             print(line.rstrip())
 
+    # The command below kicks off thread dependent on how many CPU cores your system has available 
     cpus = multiprocessing.cpu_count() #Detect the available cores on system , similar to nproc
     print("\nCreating %d threads...\n" % cpus)
 
@@ -86,6 +86,6 @@ if __name__ == "__main__":
       t.daemon = True
       t.start()
 
-    q.join() #Blocks everything until all tasks in the queue have completed, then it print the messages below
+    q.join() # Blocks everything until all tasks in the queue have completed, then it print the messages below
     print("Program has successfully completed execution ...")
     print("Please check output ...")
