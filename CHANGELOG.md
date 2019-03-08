@@ -1,4 +1,8 @@
-# 1.4.1
+# 1.5.0
+
+- Megreged pull request that fixed up code : "Removed git output, added controlled output with locks"
+
+## 1.4.1
 
 - The repo for Windows Exploit Suggester NG has been added
 
