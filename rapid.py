@@ -2,30 +2,29 @@ import os
 import sys
 import traceback
 import subprocess
-import queue 
-from queue import Empty
+import queue
 import threading
 import multiprocessing
 
-worker_data=["BloodHoundAD/BloodHound", 
-        "GhostPack/Seatbelt", 
-        "GhostPack/SharpUp", 
+worker_data=["BloodHoundAD/BloodHound",
+        "GhostPack/Seatbelt",
+        "GhostPack/SharpUp",
         "yeyintminthuhtut/Awesome-Red-Teaming",
-        "byt3bl33d3r/DeathStar", 
-        "byt3bl33d3r/CrackMapExec", 
-        "Cn33liz/p0wnedShell", 
+        "byt3bl33d3r/DeathStar",
+        "byt3bl33d3r/CrackMapExec",
+        "Cn33liz/p0wnedShell",
         "EmpireProject/Empire",
-        "danielmiessler/SecLists", 
-        "laramies/theHarvester", 
-        "s0md3v/Photon", 
-        "commixproject/commix", 
+        "danielmiessler/SecLists",
+        "laramies/theHarvester",
+        "s0md3v/Photon",
+        "commixproject/commix",
         "emtunc/SlackPirate",
-        "bwall/ExtractHosts", 
-        "Grunny/zap-cli", 
-        "tevora-threat/PowerView3-Aggressor", 
-        "vysecurity/ANGRYPUPPY", 
+        "bwall/ExtractHosts",
+        "Grunny/zap-cli",
+        "tevora-threat/PowerView3-Aggressor",
+        "vysecurity/ANGRYPUPPY",
         "harleyQu1nn/AggressorScripts",
-        "bluscreenofjeff/AggressorScripts", 
+        "bluscreenofjeff/AggressorScripts",
         "pavanw3b/sh00t",
         "evyatarmeged/Raccoon",
         "1N3/IntruderPayloads",
@@ -36,35 +35,57 @@ worker_data=["BloodHoundAD/BloodHound",
         "bitsadmin/wesng"
         "codingo/Interlace"]
 
-#Function to handle processing of commands        
-def subprocess_cmd(command):
-    process = subprocess.Popen(command,stdout=subprocess.PIPE, shell=False)
-    proc_stdout = process.communicate()[0].strip()
-    print (proc_stdout)
-
 #load up a queue with the data from the worker_data list, this will handle locking
 q = queue.Queue()
 for git_repo in worker_data:
     q.put(git_repo)
 
+#when acquired by a thread it locks other threads from printing
+lock = threading.Lock()
+
+stop = 0
+
+#Function to handle processing of commands
+def subprocess_cmd(command):
+
+    name = command[2].split("/")[-1].replace(".git", "")
+
+    process = subprocess.Popen(command, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
+    out, err = process.communicate()
+
+    lock.acquire()
+    if "fatal".encode("utf-8") not in err:
+        print ("[*] Successfully installed {}\n".format(name))
+    else:
+        try:
+            error = str(err, 'utf-8').strip().replace("\n", " ")
+        except TypeError:
+            error = err.strip().replace("\n", " ")
+        print ("[*] Problem occurred while installing {}: {}\n".format(name, error))
+    lock.release()
+
 #worker function is defined blow which will perform the work on the worker_data list
 def worker():
-    while True:
-      item = q.get()
-      subprocess_cmd(["/usr/bin/git", "clone", "https://github.com/{}.git".format(item)])
-      q.task_done()
-    
-cpus = multiprocessing.cpu_count() #Detect the available cores on system , similar to nproc
-print("Creating %d threads" % cpus)
-for i in range(cpus):
-  t = threading.Thread(target=worker)
-  t.daemon = True
-  t.start()
- 
-q.join() #Blocks everything until all tasks in the queue have completed, then it print the messages below
-print("Program has successfully completed execution ...")
-print("Please check output ...")
-# Display ASCII art from text file below
-with open('ascii.txt', 'r') as f:
-    for line in f:
-        print(line.rstrip())
+    while not stop:
+        item = q.get()
+        subprocess_cmd(["/usr/bin/git", "clone", "https://github.com/{}.git".format(item)])
+        q.task_done()
+
+if __name__ == "__main__":
+
+    # Display ASCII art from text file below
+    with open('ascii.txt', 'r') as f:
+        for line in f:
+            print(line.rstrip())
+
+    cpus = multiprocessing.cpu_count() #Detect the available cores on system , similar to nproc
+    print("\nCreating %d threads...\n" % cpus)
+
+    for i in range(cpus):
+      t = threading.Thread(target=worker)
+      t.daemon = True
+      t.start()
+
+    q.join() #Blocks everything until all tasks in the queue have completed, then it print the messages below
+    print("Program has successfully completed execution ...")
+    print("Please check output ...")
