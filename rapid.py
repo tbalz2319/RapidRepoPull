@@ -31,8 +31,8 @@ worker_data=["BloodHoundAD/BloodHound",
         "1N3/BlackWidow",
         "trustedsec/ptf",
         "swisskyrepo/PayloadsAllTheThings",
-        "robertdavidgraham/masscan"
-        "bitsadmin/wesng"
+        "robertdavidgraham/masscan",
+        "bitsadmin/wesng",
         "codingo/Interlace"]
 
 #load up a queue with the data from the worker_data list, this will handle locking
