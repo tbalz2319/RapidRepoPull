@@ -54,13 +54,13 @@ def subprocess_cmd(command):
 
     lock.acquire()
     if "fatal".encode("utf-8") not in err:
-        print ("[*] Successfully installed {}\n".format(name))
+        print ("[**] Successfully cloned {}\n".format(name))
     else:
         try:
             error = str(err, 'utf-8').strip().replace("\n", " ")
         except TypeError:
             error = err.strip().replace("\n", " ")
-        print ("[*] Problem occurred while installing {}: {}\n".format(name, error))
+        print ("[***] Problem occurred while cloning {}: {}\n".format(name, error))
     lock.release()
 
 # Worker function is defined below which will perform the work on the worker_data list
