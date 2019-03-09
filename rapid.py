@@ -55,7 +55,7 @@ def subprocess_cmd(command):
 
     lock.acquire()
     if "fatal".encode("utf-8") not in err:
-        print (colored("[**]", 'green', "Successfully cloned {}\n".format(name)))
+        print (colored("[**] Successfully cloned {}\n".format(name), 'green'))
     else:
         try:
             error = str(err, 'utf-8').strip().replace("\n", " ")
