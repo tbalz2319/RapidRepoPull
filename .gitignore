@@ -14,12 +14,12 @@ sh00t
 BloodHound
 BlackWidow
 ANGRYPUPPY
-AgressorScripts
-Awesome Red Teaming
+AggressorScripts
+Awesome-Red-Teaming
 DeathStar
 CrackMapExec
 Photon
-PowerView3 Aggressor
+PowerView3-Aggressor
 Raccoon
 Seatbelt
 SharpUp
@@ -27,6 +27,7 @@ masscan
 p0wnedShell
 wesng
 zap-cli
-
+ExtractHosts
+theHarvester
 
 
