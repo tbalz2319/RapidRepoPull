@@ -5,8 +5,9 @@ ptf
 Empire
 massscan
 SecLists
-ItruderPayloads
+IntruderPayloads
 PayloadsAllTheThings
+SlackPirate
 Interlace
 commix
 sh00t
@@ -22,10 +23,10 @@ PowerView3 Aggressor
 Raccoon
 Seatbelt
 SharpUp
-massscan
+masscan
 p0wnedShell
 wesng
-zapcli
+zap-cli
 
 
 
