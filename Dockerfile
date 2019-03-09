@@ -14,4 +14,4 @@ RUN pip install -r requirements.txt
 
 VOLUME [ "/RapidRepoPull" ]
 # ENTRYPOINT
-ENTRYPOINT [ "./boot.sh" ]
+ENTRYPOINT [ "/RapidRepoPull/boot.sh" ]
