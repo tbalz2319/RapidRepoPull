@@ -9,9 +9,10 @@ LABEL desc "This program uses Python to clone multiple security related repos us
 
 RUN apk add git && git clone https://github.com/tbalz2319/RapidRepoPull.git RapidRepoPull
 WORKDIR /RapidRepoPull
+RUN python3 -m venv venv
 RUN pip install -r requirements.txt
 
 VOLUME [ "/RapidRepoPull" ]
-# ENTRYPOINT ["sh"]
-ENTRYPOINT [ "time", "python", "rapid.py" ]
-CMD ["--help"]
+RUN chmod +x boot.sh
+# ENTRYPOINT
+ENTRYPOINT [ "./boot.sh" ]
