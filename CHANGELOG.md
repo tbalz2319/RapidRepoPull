@@ -1,4 +1,8 @@
-# 1.7.2
+# 1.7.3
+
+- Adding support for terminal colors
+
+## 1.7.2
 
 - Added an install.sh to install all dependencies and run script
 
