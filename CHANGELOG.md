@@ -1,4 +1,10 @@
-# 1.5.0
+# 1.6.0
+
+- Created a dockerfile for the script
+
+- Created a cleanup bash script
+
+## 1.5.0
 
 - Megreged pull request that fixed up code : "Removed git output, added controlled output with locks"
 
