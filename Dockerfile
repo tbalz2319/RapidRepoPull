@@ -1,7 +1,7 @@
 
 FROM python:3.7-alpine
 
-LABEL name RapidRepoPull
+LABEL name rapid
 LABEL src "https://github.com/tbalz2319/RapidRepoPull"
 LABEL creator Tbalz
 LABEL dockerfile_maintenance khast3x
