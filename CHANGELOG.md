@@ -1,4 +1,8 @@
-# 1.7.0
+# 1.7.1
+
+- Added an update.sh script to keep the program updated via Github
+
+## 1.7.0
 
 - Created docker-compose file to build dockerfile
 
