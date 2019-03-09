@@ -8,9 +8,12 @@ python3 -m venv venv
 # Activate virtual env
 source venv/bin/activate
 
-#Install requirements file
+# Upddate virtual pip version
+pip install --upgrade pip
+
+# Install requirements file
 pip install -r requirements.txt
 
-#Execute script
+# Execute script
 python3 rapid.py
 
