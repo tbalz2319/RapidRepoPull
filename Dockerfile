@@ -13,6 +13,5 @@ RUN python3 -m venv venv
 RUN pip install -r requirements.txt
 
 VOLUME [ "/RapidRepoPull" ]
-RUN chmod +x boot.sh
 # ENTRYPOINT
 ENTRYPOINT [ "./boot.sh" ]
