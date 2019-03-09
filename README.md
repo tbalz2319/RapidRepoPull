@@ -34,7 +34,13 @@
 
     ```sudo apt-get install git```
 
-## Usage
+## Automatic Usage
+
+- The script will run in a minimal Alpine Docker container (126 MB) and extract the dirs in the current working dir
+
+    ```docker-compose up --build```
+
+## Manual Usage
 
 - Clone code repo
 
