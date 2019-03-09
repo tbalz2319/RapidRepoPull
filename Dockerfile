@@ -11,6 +11,7 @@ RUN apk add git && git clone https://github.com/tbalz2319/RapidRepoPull.git Rapi
 WORKDIR /RapidRepoPull
 RUN python3 -m venv venv
 RUN pip install -r requirements.txt
+RUN chmod +x boot.sh
 
 VOLUME [ "/RapidRepoPull" ]
 # ENTRYPOINT
