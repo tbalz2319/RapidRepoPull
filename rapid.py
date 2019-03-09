@@ -1,5 +1,6 @@
 import os
 import sys
+from termcolor import colored
 import traceback
 import subprocess
 import queue
@@ -54,7 +55,7 @@ def subprocess_cmd(command):
 
     lock.acquire()
     if "fatal".encode("utf-8") not in err:
-        print ("[**] Successfully cloned {}\n".format(name))
+        print (colored("[**]", 'green', "Successfully cloned {}\n".format(name)))
     else:
         try:
             error = str(err, 'utf-8').strip().replace("\n", " ")
