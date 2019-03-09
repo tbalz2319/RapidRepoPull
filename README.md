@@ -1,7 +1,7 @@
 # RapidRepoPull
 
 ![os](https://img.shields.io/badge/OS-Linux,%20macOS-yellow.svg)
-![rapidrepoinstallver](https://img.shields.io/badge/version-1.6.0-red.svg)
+![rapidrepoinstallver](https://img.shields.io/badge/version-1.7.0-red.svg)
 [![Twitter](https://img.shields.io/badge/twitter-@xtbalz-blue.svg)](https://twitter.com/xtbalz)
 [![CodeFactor](https://www.codefactor.io/repository/github/tbalz2319/rapidrepopull/badge)](https://www.codefactor.io/repository/github/tbalz2319/rapidrepopull)
 [![Build Status](https://travis-ci.com/tbalz2319/RapidRepoPull.svg?token=QYYAGdpg1FpLiGsNAJgb&branch=master)](https://travis-ci.com/tbalz2319/RapidRepoPull)
@@ -35,6 +35,14 @@
     ```sudo apt-get install git```
 
 ## Automatic Usage
+
+- Clone code repo
+
+    ```git clone https://github.com/tbalz2319/RapidRepoPull.git```
+
+- Change directory into RapidRepoPull
+
+    ```cd RapidRepoPull```
 
 - The script will run in a minimal Alpine Docker container (126 MB) and extract the dirs in the current working dir
 

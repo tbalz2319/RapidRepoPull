@@ -1,4 +1,12 @@
-# 1.6.0
+# 1.7.0
+
+- Created docker-compose file to build dockerfile
+
+- Cleaned up print statement outputs
+
+- Various updates to readme for clarity
+
+## 1.6.0
 
 - Created a dockerfile for the script
 
