@@ -50,7 +50,15 @@
 
 ## Usage Option 2 Local Install
 
-- Just execute the script below
+- Clone code repo
+
+    ```git clone https://github.com/tbalz2319/RapidRepoPull.git```
+
+- Change directory into RapidRepoPull
+
+    ```cd RapidRepoPull```
+
+- Execute the script below
 
     ```./install.sh```
 
@@ -91,8 +99,6 @@
 - Add error handling
 
 - Clean up code
-
-- Create install shell script for ease of use
 
 ## Contribute
 
