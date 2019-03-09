@@ -91,4 +91,4 @@ if __name__ == "__main__":
 
     q.join() # Blocks everything until all tasks in the queue have completed, then it print the messages below
     print("Program has successfully completed execution ...")
-    print("Please check output ...")
+    print(colored("Please check output ..."), 'yellow')
