@@ -1,4 +1,8 @@
-# 1.7.1
+# 1.7.2
+
+- Added an install.sh to install all dependencies and run script
+
+## 1.7.1
 
 - Added an update.sh script to keep the program updated via Github
 
