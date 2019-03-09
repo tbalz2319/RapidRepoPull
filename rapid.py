@@ -80,7 +80,7 @@ if __name__ == "__main__":
     # The command below kicks off thread dependent on how many CPU cores your system has available 
     #cpus = multiprocessing.cpu_count() #Detect the available cores on system , similar to nproc
     #print("\nCreating %d threads...\n" % cpus)
-    cpus = 20
+    cpus = 10
     print("\nPulling git repos with %d threads...\n" % cpus)
 
     for i in range(cpus):
