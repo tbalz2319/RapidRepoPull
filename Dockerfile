@@ -13,5 +13,5 @@ RUN pip install -r requirements.txt
 
 VOLUME [ "/RapidRepoPull" ]
 # ENTRYPOINT ["sh"]
-ENTRYPOINT [ "python", "rapid.py" ]
+ENTRYPOINT [ "time", "python", "rapid.py" ]
 CMD ["--help"]
