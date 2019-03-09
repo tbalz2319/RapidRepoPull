@@ -34,7 +34,7 @@
 
     ```sudo apt-get install git```
 
-## Automatic Usage
+## Usage Option 1 Automatic (Docker)
 
 - Clone code repo
 
@@ -48,7 +48,13 @@
 
     ```docker-compose up --build```
 
-## Manual Usage
+## Usage Option 2 Local Install
+
+- Just execute the script below
+
+    ```./install.sh```
+
+## Usage Option 3 Manual
 
 - Clone code repo
 
