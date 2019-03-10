@@ -1,4 +1,8 @@
-# 1.7.4
+# 1.7.5
+
+- Green colored text added to echo statements in install.sh
+
+## 1.7.4
 
 - Added support to mass update all repos already cloned instead of re-cloning
 
