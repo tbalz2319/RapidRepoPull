@@ -1,4 +1,8 @@
-# 1.7.6
+# 1.7.7
+
+- Added image of running program in readme file
+
+## 1.7.6
 
 - Added support for green colored echo statements in update_repos.sh
 
