@@ -1,4 +1,8 @@
-# 1.7.3
+# 1.7.4
+
+- Added support to mass update all repos already cloned instead of re-cloning
+
+## 1.7.3
 
 - Adding support for terminal colors
 

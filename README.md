@@ -1,14 +1,14 @@
 # RapidRepoPull
 
 ![os](https://img.shields.io/badge/OS-Linux,%20macOS-yellow.svg)
-![rapidrepoinstallver](https://img.shields.io/badge/version-1.7.3-red.svg)
+![rapidrepoinstallver](https://img.shields.io/badge/version-1.7.4-red.svg)
 [![Twitter](https://img.shields.io/badge/twitter-@xtbalz-blue.svg)](https://twitter.com/xtbalz)
 [![CodeFactor](https://www.codefactor.io/repository/github/tbalz2319/rapidrepopull/badge)](https://www.codefactor.io/repository/github/tbalz2319/rapidrepopull)
 [![Build Status](https://travis-ci.com/tbalz2319/RapidRepoPull.svg?token=QYYAGdpg1FpLiGsNAJgb&branch=master)](https://travis-ci.com/tbalz2319/RapidRepoPull)
 
 ## Description
 
-- This program uses Python to clone multiple security related repos using threading and multiprocessing
+- This program uses Python to clone/maintain multiple security related repos using threading and multiprocessing
 
 ## Goal
 
@@ -88,11 +88,17 @@
 
     ```python3 rapid.py```
 
-## Update
+## Update Program
 
 - Run the following script
 
     ```./update.sh```
+
+## Mass Update all existing repos
+
+- Run the command to maintain all existing repos by attempting to pull latest version
+
+    ```./update_repos.sh```
 
 ## To do
 
