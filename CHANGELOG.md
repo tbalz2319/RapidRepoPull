@@ -1,4 +1,8 @@
-# 1.7.5
+# 1.7.6
+
+- Added support for green colored echo statements in update_repos.sh
+
+## 1.7.5
 
 - Green colored text added to echo statements in install.sh
 
