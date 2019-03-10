@@ -6,7 +6,7 @@
 [![CodeFactor](https://www.codefactor.io/repository/github/tbalz2319/rapidrepopull/badge)](https://www.codefactor.io/repository/github/tbalz2319/rapidrepopull)
 [![Build Status](https://travis-ci.com/tbalz2319/RapidRepoPull.svg?token=QYYAGdpg1FpLiGsNAJgb&branch=master)](https://travis-ci.com/tbalz2319/RapidRepoPull)
 
-[[https://github.com/tbalz2319/repository/Ra/master/img/octocat.png|alt=octocat]]
+[[https://github.com/tbalz2319/RapidRepoPull/blob/master/rrp.png|alt=octocat]]
 
 ## Description
 
