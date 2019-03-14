@@ -1,6 +1,13 @@
 #!/bin/bash
 
-#Install all the requirements for the RapidRepoPull program and run
+# Install all the requirements for the RapidRepoPull program and run
+
+# Install required packages
+# The if statement below will only work on Linux (Ubuntu/Debian/Kali) based distros
+pkgs='python3-venv git'
+if ! dpkg -s $pkgs >/dev/null 2>&1; then
+  sudo apt-get install $pkgs
+fi
 
 green=`tput setaf 2`
 
