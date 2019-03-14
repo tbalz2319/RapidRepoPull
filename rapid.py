@@ -1,5 +1,6 @@
 import os
 import sys
+import click
 from termcolor import colored
 import traceback
 import subprocess
@@ -72,12 +73,24 @@ def worker():
         subprocess_cmd(["/usr/bin/git", "clone", "https://github.com/{}.git".format(item)])
         q.task_done()
 
-if __name__ == "__main__":
-
-    # Display ASCII art from text file below
+def intro():
+     # Display ASCII art from text file below
     with open('ascii.txt', 'r') as f:
         for line in f:
             print(line.rstrip())
+
+@click.command()
+@click.option('--verbose', '-v', multiple=True, is_flag=True, help="Will print verbose messages.")
+@click.option('--file','-f', multiple=True,  default='', help='a text file with a list of users favorite Github repos')
+@click.option('--thread','t', multiple=True, default='', help='Number of CPU threads to use')
+def cli(verbose, file, thread):
+    if verbose:
+        click.echo("We are in the verbose mode.")
+    click.echo("Aquired thread count value to use from user input...")
+    click.echo('The thread count to use is ... {0}'.format(thread))
+
+if __name__ == "__main__":
+
 
     # The command below kicks off thread dependent on how many CPU cores your system has available 
     cpus = multiprocessing.cpu_count() #Detect the available cores on system , similar to nproc
