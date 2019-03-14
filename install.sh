@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 
 # Install all the requirements for the RapidRepoPull program and run
 
