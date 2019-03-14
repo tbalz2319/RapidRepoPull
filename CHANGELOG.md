@@ -1,4 +1,10 @@
-# 1.7.7
+# 1.7.8
+
+- Install script updated to detect OS and install specific dependencies
+
+- So far, this only works for Kali/Ubuntu/Debian Linux distros
+
+## 1.7.7
 
 - Added image of running program in readme file
 
