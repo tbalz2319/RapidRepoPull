@@ -97,13 +97,13 @@ def intro():
 
 @click.command()
 @click.option('--verbose', '-v', multiple=True, is_flag=True, help="Will print verbose messages.")
-@click.option('--file','-f', multiple=True,  default='', help='a text file with a list of users favorite Github repos')
-@click.option('--thread','-t', multiple=True, default='', help='Number of CPU threads to use')
+@click.option('--file', '-f', multiple=True,  default='', help='a text file with a list of users favorite Github repos')
+@click.option('--thread', '-t', multiple=True, default='', help='Number of CPU threads to use')
 def cli(verbose, file, thread):
     if verbose:
         click.echo("We are in the verbose mode.")
     click.echo("Aquired thread count value to use from user input...")
     click.echo('The thread count to use is ... {0}'.format(thread))
-    click.echo('The filename which contains user defined repos is called ... {1}'.format(file))
+    click.echo('The filename which contains user defined repos is called ... {0}'.format(file))
 if __name__ == "__main__":
     cli()
