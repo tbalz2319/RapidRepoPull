@@ -38,6 +38,21 @@ worker_data=["BloodHoundAD/BloodHound",
         "Yara-Rules/rules",
         "codingo/Interlace"]
 
+def threadCount(thread):
+    # The command below kicks off thread dependent on how many CPU cores your system has available 
+    thread = multiprocessing.cpu_count() #Detect the available cores on system , similar to nproc
+    print("\nCreating %d threads...\n" % thread)
+    #cpus = 10
+    #print("\nPulling git repos with %d threads...\n" % cpus))
+    for i in range(thread):
+      t = threading.Thread(target=worker)
+      t.daemon = True
+      t.start()
+
+    q.join() # Blocks everything until all tasks in the queue have completed, then it print the messages below
+    print("Program has successfully completed execution ...")
+    print(colored("Please check output ...", 'yellow'))
+
 # Load up a queue with the data from the worker_data list, this will handle locking
 q = queue.Queue()
 for git_repo in worker_data:
@@ -78,31 +93,17 @@ def intro():
     with open('ascii.txt', 'r') as f:
         for line in f:
             print(line.rstrip())
+        return
 
 @click.command()
 @click.option('--verbose', '-v', multiple=True, is_flag=True, help="Will print verbose messages.")
 @click.option('--file','-f', multiple=True,  default='', help='a text file with a list of users favorite Github repos')
-@click.option('--thread','t', multiple=True, default='', help='Number of CPU threads to use')
+@click.option('--thread','-t', multiple=True, default='', help='Number of CPU threads to use')
 def cli(verbose, file, thread):
     if verbose:
         click.echo("We are in the verbose mode.")
     click.echo("Aquired thread count value to use from user input...")
     click.echo('The thread count to use is ... {0}'.format(thread))
-
+    click.echo('The filename which contains user defined repos is called ... {1}'.format(file))
 if __name__ == "__main__":
-
-
-    # The command below kicks off thread dependent on how many CPU cores your system has available 
-    cpus = multiprocessing.cpu_count() #Detect the available cores on system , similar to nproc
-    print("\nCreating %d threads...\n" % cpus)
-    #cpus = 10
-    #print("\nPulling git repos with %d threads...\n" % cpus)
-
-    for i in range(cpus):
-      t = threading.Thread(target=worker)
-      t.daemon = True
-      t.start()
-
-    q.join() # Blocks everything until all tasks in the queue have completed, then it print the messages below
-    print("Program has successfully completed execution ...")
-    print(colored("Please check output ...", 'yellow'))
+    cli()
