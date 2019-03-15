@@ -97,8 +97,8 @@ def intro():
 
 @click.command()
 @click.option('--verbose', '-v', multiple=True, is_flag=True, help="Will print verbose messages.")
-@click.option('--file', '-f', multiple=True,  default='', help='a text file with a list of users favorite Github repos')
-@click.option('--thread', '-t', multiple=True, default='', help='Number of CPU threads to use')
+@click.option('--file', '-f', multiple=True,  default='' , help='a text file with a list of users favorite Github repos')
+@click.option('--thread', '-t', multiple=True, default='' , help='Number of CPU threads to use')
 def cli(verbose, file, thread):
     if verbose:
         click.echo("We are in the verbose mode.")
