@@ -104,6 +104,9 @@ def cli(verbose, file, thread):
         click.echo("We are in the verbose mode.")
     click.echo("Aquired thread count value to use from user input...")
     click.echo('The thread count to use is ... {0}'.format(thread))
-    click.echo('The filename which contains user defined repos is called ... {0}'.format(file))
+    click.echo('The filename which contains user defined repos is called {}'.format(file))
+    file = file.replace(',','')
+    print('The value for file is now {}'.format(file))
+
 if __name__ == "__main__":
     cli()
