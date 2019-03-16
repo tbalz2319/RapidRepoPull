@@ -1,4 +1,8 @@
-# 1.7.8
+# 1.7.9
+
+- Added the CarbonCopy tool to the clone list
+
+## 1.7.8
 
 - Install script updated to detect OS and install specific dependencies
 
