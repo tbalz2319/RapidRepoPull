@@ -1,4 +1,8 @@
-# 1.7.9
+# 1.8.0
+
+- Added the email-enum tool to the close list
+
+## 1.7.9
 
 - Added the CarbonCopy tool to the clone list
 
