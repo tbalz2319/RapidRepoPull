@@ -1,6 +1,10 @@
-# 1.8.0
+# 1.8.1
 
-- Added the email-enum tool to the close list
+- Added the Hamburgler tool to the clone list
+
+## 1.8.0
+
+- Added the email-enum tool to the clone list
 
 ## 1.7.9
 
