@@ -1,4 +1,8 @@
-# 1.8.1
+# 1.8.2
+
+- Minor issue fix in repo related to missing ','
+
+## 1.8.1
 
 - Added the Hamburgler tool to the clone list
 
