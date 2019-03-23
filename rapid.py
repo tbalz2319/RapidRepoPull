@@ -124,7 +124,7 @@ def cli(verbose, file, thread):
         #     print('[%s]' % ', '.join(map(str, worker_data2)))
         #     # The print statement above proves that worker_data is now updated with the two additional repos
         #test initial list
-        
+        # Open text file provided by user which includes a list of user specified Github repos line by line
         with open(file) as repofile:
             for line in repofile:
                 line = line.strip()
@@ -135,7 +135,7 @@ def cli(verbose, file, thread):
         for git_repo in worker_data2:
             q.put(git_repo)
 
-        def worker():
+        def worker2():
           while not stop: 
             item = q.get()
             subprocess_cmd(["/usr/bin/git", "clone", "https://github.com/{}.git".format(item)])
@@ -146,7 +146,7 @@ def cli(verbose, file, thread):
         #cpus = 10
         #print("\nPulling git repos with %d threads...\n" % cpus))
         for i in range(cpus):
-            t = threading.Thread(target=worker)
+            t = threading.Thread(target=worker2)
             t.daemon = True
             t.start()
 
@@ -167,8 +167,9 @@ def cli(verbose, file, thread):
     # The multiprocessing libary below is ready to be called at this point
     # We want to make sure it takes in the "thread" parameter from the click cli function input from the user
     
-
-    #threadCount(thread)
+    # Initial main part of program below
+    # The part below installs all built in repos consumed by the program
+    threadCount(thread)
 
 if __name__ == "__main__":
     # The cli function calls all other functions when it is executed 
