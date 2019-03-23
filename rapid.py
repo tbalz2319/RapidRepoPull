@@ -61,9 +61,9 @@ def threadCount(thread):
     print(colored("Please check output ...", 'yellow'))
 
 # Load up a queue with the data from the worker_data list, this will handle locking
-# q = queue.Queue()
-# for git_repo in worker_data2:
-#     q.put(git_repo)
+    q = queue.Queue()
+    for git_repo in worker_data:
+        q.put(git_repo)
 
 # When acquired by a thread it locks other threads from printing
 lock = threading.Lock()
@@ -90,6 +90,11 @@ def subprocess_cmd(command):
 
 # Worker function is defined below which will perform the work on the worker_data list
 
+def worker():
+    while not stop: 
+        item = q.get()
+        subprocess_cmd(["/usr/bin/git", "clone", "https://github.com/{}.git".format(item)])
+        q.task_done()
 
 def intro():
      # Display ASCII art from text file below
