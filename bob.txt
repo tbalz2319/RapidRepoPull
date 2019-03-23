@@ -1,5 +1,2 @@
- swisskyrepo/PayloadsAllTheThings
- robertdavidgraham/masscan
- bitsadmin/wesng
- Yara-Rules/rules
- codingo/Interlace
+https://github.com/nephila/giturlparse.git
+https://github.com/meitar/awesome-cybersecurity-blueteam.git

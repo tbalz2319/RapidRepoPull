@@ -7,6 +7,7 @@ import subprocess
 import queue
 import threading
 import multiprocessing
+import giturlparse
 
 worker_data=["BloodHoundAD/BloodHound",
         "GhostPack/Seatbelt",
@@ -121,7 +122,9 @@ def cli(verbose, file, thread):
         with open(file) as repofile:
             for line in repofile:
                 line = line.strip()
-                worker_data2.append(line)
+                p = giturlparse.parse(line)
+                p_new = p.owner + '/' + p.repo
+                worker_data2.append(p_new)
                 print(worker_data2)
 
         q = queue.Queue()
@@ -157,7 +160,7 @@ def cli(verbose, file, thread):
     
     # Initial main part of program below
     # The part below installs all built in repos consumed by the program
-    threadCount(thread)
+    #threadCount(thread)
 
 if __name__ == "__main__":
     # The cli function calls all other functions when it is executed 
