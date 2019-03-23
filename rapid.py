@@ -33,13 +33,16 @@ worker_data=["BloodHoundAD/BloodHound",
         "1N3/BlackWidow",
         "trustedsec/ptf",
         "swisskyrepo/PayloadsAllTheThings",
-        "robertdavidgraham/masscan",
+        #"robertdavidgraham/masscan",
         "bitsadmin/wesng",
-        "needmorecowbell/Hamburglar"
-        "Yara-Rules/rules"]
+        "needmorecowbell/Hamburglar"]
+        #"Yara-Rules/rules"]
         #"codingo/Interlace"]
 
 #test initial list
+q = queue.Queue()
+for git_repo in worker_data:
+    q.put(git_repo)
 
 def threadCount(thread):
     # The command below kicks off thread dependent on how many CPU cores your system has available 
@@ -59,11 +62,6 @@ def threadCount(thread):
     print("Program has successfully completed execution ...")
     print('[%s]' % ', '.join(map(str, worker_data)))
     print(colored("Please check output ...", 'yellow'))
-
-# Load up a queue with the data from the worker_data list, this will handle locking
-    q = queue.Queue()
-    for git_repo in worker_data:
-        q.put(git_repo)
 
 # When acquired by a thread it locks other threads from printing
 lock = threading.Lock()
@@ -118,17 +116,7 @@ def cli(verbose, file, thread):
         click.echo('The thread count to use is ... {0}'.format(thread))
     if file:
         click.echo('The filename which contains user defined repos is called {}'.format(file))
-        #Open user suppplied text file and append it to our existing worker_data list (array)
-        # f = open(file,'r')
-        # for line in f:
-        #     # Print lines in user supplied text file for testing
-        #     print(line.rstrip())
-        #     worker_data2.append(line)
-        #     worker_data2.save()
-        #     # print updated worker_data list to see its contents with added repos
-        #     print('[%s]' % ', '.join(map(str, worker_data2)))
-        #     # The print statement above proves that worker_data is now updated with the two additional repos
-        #test initial list
+        # Open user suppplied text file and append it to our existing worker_data list (array)
         # Open text file provided by user which includes a list of user specified Github repos line by line
         with open(file) as repofile:
             for line in repofile:
@@ -160,11 +148,6 @@ def cli(verbose, file, thread):
         print('[%s]' % ', '.join(map(str, worker_data2)))
         print(colored("Please check output ...", 'yellow'))
 
-        
-                
-
-
-    
     #Show intro ASCII Art (Step1)
     intro()    
     # The goal is to read the filename below if it were given 
