@@ -1,4 +1,8 @@
-# 1.8.2
+# 1.8.3
+
+- Adding the "linux-exploit-suggester-2" repo to the clone list
+
+## 1.8.2
 
 - Minor issue fix in repo related to missing ','
 

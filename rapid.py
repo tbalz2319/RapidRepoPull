@@ -38,6 +38,7 @@ worker_data=["BloodHoundAD/BloodHound",
         "paranoidninja/CarbonCopy",
         "Frint0/email-enum",
         "needmorecowbell/Hamburglar",
+        "linux-exploit-suggester-2",
         "codingo/Interlace"]
 
 # Load up a queue with the data from the worker_data list, this will handle locking
