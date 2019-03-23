@@ -1,2 +1,3 @@
 https://github.com/nephila/giturlparse.git
 https://github.com/meitar/awesome-cybersecurity-blueteam.git
+git@github.com:jondonas/linux-exploit-suggester-2.git
