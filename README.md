@@ -8,6 +8,10 @@
 
 ![alt text](https://github.com/tbalz2319/RapidRepoPull/blob/master/rrp.png)
 
+## Created and Maintained by
+
+- Talal Balouch (Twitter @xtbalz)
+
 ## Description
 
 - This program uses Python to clone/maintain multiple security related repos using threading and multiprocessing
@@ -37,6 +41,8 @@
     ```sudo apt-get install git```
 
 ## Usage Option 1 Automatic (Docker)
+
+### This option does not allow a user to specify the number of threads or a a text file including additional repos
 
 - Clone code repo
 
@@ -90,6 +96,10 @@
 
     ```python3 rapid.py```
 
+## Usage Option 4 Custom
+
+- 
+
 ## Update Program
 
 - Run the following script
@@ -110,6 +120,6 @@
 
 ## Contribute
 
-- Code is being cleaned up and refined, there are most likely lots of bugs that need to fixed
+- Code is constantly being cleanup, refactored and refined, there are most likely lots of bugs that need to fixed
 
 - Pull requests welcomed

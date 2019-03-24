@@ -45,6 +45,25 @@ q = queue.Queue()
 for git_repo in worker_data:
     q.put(git_repo)
 
+def autoThread():
+    # The command below kicks off thread dependent on how many CPU cores your system has available 
+    thread = multiprocessing.cpu_count() #Detect the available cores on system , similar to nproc
+    # Convert user supplied thread value (String) to integer for consuption
+    cpus = int(thread)
+    print("\nCreating %d threads...\n" % cpus)
+    #print("\nPulling git repos with %d threads...\n" % cpus))
+    for i in range(cpus):
+      t = threading.Thread(target=worker)
+      t.daemon = True
+      t.start()
+
+    q.join() # Blocks everything until all tasks in the queue have completed, then it print the messages below
+    print("Program has successfully completed execution ...")
+    print('[%s]' % ', '.join(map(str, worker_data)))
+    print(colored("Please check output ...", 'yellow'))
+
+# The function below only kicks off if there is user specific threads provided to 
+# the program
 def threadCount(thread):
     # The command below kicks off thread dependent on how many CPU cores your system has available 
     #thread = multiprocessing.cpu_count() #Detect the available cores on system , similar to nproc
@@ -106,8 +125,8 @@ def intro():
 @click.option('--verbose', '-v', multiple=True, is_flag=True, help="Will print verbose messages.")
 # Interesting note below, the multiple option lets you changethe values of the option to a tuple if its true
 # If it is not true, then the value is a single value
-@click.option('--file', '-f', multiple=False,  default='' , help='a text file with a list of users favorite Github repos')
-@click.option('--thread', '-t', multiple=False, default='' , help='Number of CPU threads to use')
+@click.option('--file', '-f', multiple=False,  default='' , help='Specify a text file with a list of user selected Github repos')
+@click.option('--thread', '-t', multiple=False, default='' , help='Specify the number of CPU threads to use')
 def cli(verbose, file, thread):
     worker_data2 = []
     if verbose:
@@ -160,7 +179,18 @@ def cli(verbose, file, thread):
     
     # Initial main part of program below
     # The part below installs all built in repos consumed by the program
-    #threadCount(thread)
+
+    # This if/else seeks to check if the thread variable is empty
+    # If it is empty, it kicks the user to a seperate function that attempts to read the number
+    # of CPUs in the system and utilizing those for its execution
+    if not thread:
+        print("your_variable is empty")
+        autoThread()
+    else: 
+        try:
+            threadCount(thread)
+        except:
+            print('An error occured.')
 
 if __name__ == "__main__":
     # The cli function calls all other functions when it is executed 
