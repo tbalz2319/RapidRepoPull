@@ -2,6 +2,10 @@
 
 - Adding jondonas/ in front of broken repo pull for linux-exploit-suggester-2
 
+- Adding the following dirs to .gitignore linux-exploit-suggester-2, CarbonCopy 
+
+- Hamburglar email-enum added to .gitignore as well
+
 ## 1.8.3
 
 - Adding the "linux-exploit-suggester-2" repo to the clone list
