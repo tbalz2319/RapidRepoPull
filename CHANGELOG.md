@@ -1,4 +1,8 @@
-# 1.8.3
+# 1.8.4
+
+- Adding jondonas/ in front of broken repo pull for linux-exploit-suggester-2
+
+## 1.8.3
 
 - Adding the "linux-exploit-suggester-2" repo to the clone list
 
