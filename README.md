@@ -98,7 +98,17 @@
 
 ## Usage Option 4 Custom
 
-- 
+- Clone code repo
+
+    ```git clone https://github.com/tbalz2319/RapidRepoPull.git```
+
+- Change directory into RapidRepoPull
+
+    ```cd RapidRepoPull```
+
+- Execute the script below
+
+    ```./option.sh```-
 
 ## Update Program
 
