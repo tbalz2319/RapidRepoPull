@@ -108,7 +108,7 @@
 
 - Execute the script below
 
-    ```./option.sh```
+    ```./option4.sh```
 
 ## Update Program
 
