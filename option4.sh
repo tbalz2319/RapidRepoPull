@@ -26,5 +26,9 @@ echo "  "
 echo "  "
 echo "  "
 echo "  "
+echo "  "
+echo "  "
+echo "  "
+echo "  "
 # Display help options
 python rapid.py --help 
