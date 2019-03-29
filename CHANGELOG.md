@@ -1,8 +1,12 @@
-# 1.8.4
+# 1.8.5
+
+- Adding the hlldz/Invoke-Phant0m repo to the clone list
+
+## 1.8.4
 
 - Adding jondonas/ in front of broken repo pull for linux-exploit-suggester-2
 
-- Adding the following dirs to .gitignore linux-exploit-suggester-2, CarbonCopy 
+- Adding the following dirs to .gitignore linux-exploit-suggester-2, CarbonCopy
 
 - Hamburglar email-enum added to .gitignore as well
 
