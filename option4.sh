@@ -31,9 +31,10 @@ echo "  "
 echo "  "
 echo "  "
 
-# Ensure virtualenv is active
-echo "${green}Activating virtual env"
-source venv/bin/activate 
-
 # Display help options
 python rapid.py --help 
+
+# Ensure virtualenv is active after this script exits
+echo "${green}Activating virtual env via Python script..."
+python activate_venv.py
+
