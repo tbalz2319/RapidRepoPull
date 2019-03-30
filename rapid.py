@@ -193,9 +193,10 @@ def cli(verbose, file, thread):
     else: 
         try:
             threadCount(thread)
-        except:
-            print('An error occured.')
+        except Exception as e:
+            print(str(e))
 
 if __name__ == "__main__":
     # The cli function calls all other functions when it is executed 
     cli()
+    

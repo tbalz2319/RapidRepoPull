@@ -1,4 +1,8 @@
-# 2.0.0
+# 2.0.1
+
+- Adding in minor Linter code fixes
+
+## 2.0.0
 
 - New 2.0.0 release includes the following new features
 
