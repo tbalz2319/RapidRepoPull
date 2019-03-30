@@ -124,6 +124,8 @@
 
 - Example specifying a custom text file with a list of repos and how many threads the script should use
 
+- The text file must reside in the same directory as rapid.py and can be called anything
+
     ```python rapid.py -f bob.txt -t 25```
 
 ## Update Program
