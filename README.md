@@ -126,6 +126,8 @@
 
 - The text file must reside in the same directory as rapid.py and can be called anything
 
+- The example file "bob.txt" is there to testing an example purposes
+
     ```python rapid.py -f bob.txt -t 25```
 
 ## Update Program
