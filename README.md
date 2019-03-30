@@ -8,6 +8,10 @@
 
 ![alt text](https://github.com/tbalz2319/RapidRepoPull/blob/master/rrp.png)
 
+## Created and Maintained by
+
+- Talal Balouch (Twitter @xtbalz)
+
 ## Description
 
 - This program uses Python to clone/maintain multiple security related repos using threading and multiprocessing
@@ -37,6 +41,8 @@
     ```sudo apt-get install git```
 
 ## Usage Option 1 Automatic (Docker)
+
+### This option does not allow a user to specify the number of threads or a a text file including additional repos
 
 - Clone code repo
 
@@ -90,6 +96,41 @@
 
     ```python3 rapid.py```
 
+## Usage Option 4 Custom
+
+- Clone code repo
+
+    ```git clone https://github.com/tbalz2319/RapidRepoPull.git```
+
+- Change directory into RapidRepoPull
+
+    ```cd RapidRepoPull```
+
+- Execute the script below
+
+    ```./option4.sh```
+
+- The script will exit while leaving the program in a python virtual env indicated by (venv)
+
+- Use the help menu below to navigate options
+
+    ```Usage: rapid.py [OPTIONS]```
+
+    ```test
+       Options:
+       -v, --verbose      Will print verbose messages.
+       -f, --file TEXT    Specify a text file with a list of user selected Github repos
+       -t, --thread TEXT  Specify the number of CPU threads to use
+       --help             Show this message and exit.```
+
+- Example specifying a custom text file with a list of repos and how many threads the script should use
+
+- The text file must reside in the same directory as rapid.py and can be called anything
+
+- The example file "bob.txt" is there to testing an example purposes
+
+    ```python rapid.py -f bob.txt -t 25```
+
 ## Update Program
 
 - Run the following script
@@ -110,6 +151,6 @@
 
 ## Contribute
 
-- Code is being cleaned up and refined, there are most likely lots of bugs that need to fixed
+- Code is constantly being cleanup, refactored and refined, there are most likely lots of bugs that need to fixed
 
 - Pull requests welcomed
