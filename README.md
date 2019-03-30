@@ -110,6 +110,22 @@
 
     ```./option4.sh```
 
+- The script will exit while leaving the program in a python virtual env indicated by (venv)
+
+- Use the help menu below to navigate options
+
+    ```Usage: rapid.py [OPTIONS]
+
+       Options:
+       -v, --verbose      Will print verbose messages.
+       -f, --file TEXT    Specify a text file with a list of user selected Github repos
+       -t, --thread TEXT  Specify the number of CPU threads to use
+       --help             Show this message and exit.```
+
+- Example specifying a custom text file with a list of repos and how many threads the script should use
+
+    ```python rapid.py -f bob.txt -t 25```
+
 ## Update Program
 
 - Run the following script
