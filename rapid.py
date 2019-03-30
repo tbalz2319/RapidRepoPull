@@ -36,9 +36,13 @@ worker_data=["BloodHoundAD/BloodHound",
         "swisskyrepo/PayloadsAllTheThings",
         #"robertdavidgraham/masscan",
         "bitsadmin/wesng",
-        "needmorecowbell/Hamburglar"]
-        #"Yara-Rules/rules"]
-        #"codingo/Interlace"]
+        "Yara-Rules/rules",
+        "paranoidninja/CarbonCopy",
+        "Frint0/email-enum",
+        "needmorecowbell/Hamburglar",
+        "jondonas/linux-exploit-suggester-2",
+        "hlldz/Invoke-Phant0m",
+        "codingo/Interlace"]
 
 #test initial list
 q = queue.Queue()

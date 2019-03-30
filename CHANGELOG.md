@@ -1,4 +1,42 @@
-# 1.7.7
+# 1.8.5
+
+- Adding the hlldz/Invoke-Phant0m repo to the clone list
+
+## 1.8.4
+
+- Adding jondonas/ in front of broken repo pull for linux-exploit-suggester-2
+
+- Adding the following dirs to .gitignore linux-exploit-suggester-2, CarbonCopy
+
+- Hamburglar email-enum added to .gitignore as well
+
+## 1.8.3
+
+- Adding the "linux-exploit-suggester-2" repo to the clone list
+
+## 1.8.2
+
+- Minor issue fix in repo related to missing ','
+
+## 1.8.1
+
+- Added the Hamburgler tool to the clone list
+
+## 1.8.0
+
+- Added the email-enum tool to the clone list
+
+## 1.7.9
+
+- Added the CarbonCopy tool to the clone list
+
+## 1.7.8
+
+- Install script updated to detect OS and install specific dependencies
+
+- So far, this only works for Kali/Ubuntu/Debian Linux distros
+
+## 1.7.7
 
 - Added image of running program in readme file
 
