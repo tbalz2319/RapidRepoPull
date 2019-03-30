@@ -9,7 +9,7 @@ echo "${green}Setting up Python3 virtual env"
 python3 -m venv venv
 
 # Activate virtual env
-echo "${green}Activating virtaul env"
+echo "${green}Activating virtual env"
 source venv/bin/activate
 
 # Upddate virtual pip version
@@ -30,5 +30,10 @@ echo "  "
 echo "  "
 echo "  "
 echo "  "
+
+# Ensure virtualenv is active
+echo "${green}Activating virtual env"
+source venv/bin/activate 
+
 # Display help options
 python rapid.py --help 
