@@ -1,4 +1,8 @@
-# 2.0.1
+# 2.0.2
+
+- Uncommented the mass scan repo which was taken out during dev testing
+
+## 2.0.1
 
 - Adding in minor Linter code fixes
 
