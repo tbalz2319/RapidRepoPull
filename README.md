@@ -114,8 +114,9 @@
 
 - Use the help menu below to navigate options
 
-    ```Usage: rapid.py [OPTIONS]
+    ```Usage: rapid.py [OPTIONS]```
 
+    ```test
        Options:
        -v, --verbose      Will print verbose messages.
        -f, --file TEXT    Specify a text file with a list of user selected Github repos
