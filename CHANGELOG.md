@@ -1,4 +1,8 @@
-# 2.0.2
+# 2.0.3
+
+- Adding patator and girurlparse repos to .gitignore file
+
+## 2.0.2
 
 - Uncommented the mass scan repo which was taken out during dev testing
 
