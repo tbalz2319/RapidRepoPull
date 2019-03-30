@@ -180,9 +180,6 @@ def cli(verbose, file, thread):
     
     # The multiprocessing libary below is ready to be called at this point
     # We want to make sure it takes in the "thread" parameter from the click cli function input from the user
-    
-    # Initial main part of program below
-    # The part below installs all built in repos consumed by the program
 
     # This if/else seeks to check if the thread variable is empty
     # If it is empty, it kicks the user to a seperate function that attempts to read the number
@@ -195,6 +192,9 @@ def cli(verbose, file, thread):
             threadCount(thread)
         except Exception as e:
             print(str(e))
+
+ # Initial main part of program below
+ # The part below installs all built in repos consumed by the program
 
 if __name__ == "__main__":
     # The cli function calls all other functions when it is executed 
