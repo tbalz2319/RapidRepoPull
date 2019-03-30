@@ -94,7 +94,7 @@
 
 - Run program
 
-    ```python3 rapid.py```
+    ```python rapid.py```
 
 ## Usage Option 4 Custom
 
