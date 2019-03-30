@@ -1,4 +1,20 @@
-# 1.8.5
+# 2.0.0
+
+- New 2.0.0 release includes the following new features
+
+- New CLI based help menu with multiple options
+
+- Ability to Specify user defined text file with custom repos for RapidRepoPull to clone
+
+- Ability to specify how many threads the script takes advantage of
+
+- Code refactored and additional comments added for clarity
+
+- New use option script (option4.sh) created to install dependencies and get script ready for user
+
+- specified text file and the specification for the number of threads to use
+
+## 1.8.5
 
 - Adding the hlldz/Invoke-Phant0m repo to the clone list
 
