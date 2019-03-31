@@ -1,4 +1,10 @@
-# 2.0.3
+# 2.1.0
+
+- Externalised repos to text file called default.txt
+
+- Code refacotring optimizations thanks to diego95root!
+
+## 2.0.3
 
 - Adding patator and girurlparse repos to .gitignore file
 
