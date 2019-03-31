@@ -88,11 +88,10 @@ def cli(verbose, file, thread):
             subprocess_cmd(["/usr/bin/git", "clone", "https://github.com/{}.git".format(item)])
             q.task_done()
 
-        cpus = int(thread)
-        print("\nCreating %d threads...\n" % cpus)
+        print("\nCreating %d threads...\n" % thread)
         #cpus = 10
         #print("\nPulling git repos with %d threads...\n" % cpus))
-        for i in range(cpus):
+        for i in range(thread):
             t = threading.Thread(target=worker)
             t.daemon = True
             t.start()
