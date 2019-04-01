@@ -1,4 +1,8 @@
-# 2.1.0
+# 2.1.1
+
+- Adding the chompscan repo to the default.txt file to be cloned
+
+## 2.1.0
 
 - Externalised repos to text file called default.txt
 

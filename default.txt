@@ -32,3 +32,4 @@ https://github.com/needmorecowbell/Hamburglar.git
 https://github.com/jondonas/linux-exploit-suggester-2.git
 https://github.com/hlldz/Invoke-Phant0m.git
 https://github.com/codingo/Interlace.git
+https://github.com/SolomonSklash/chomp-scan.git
