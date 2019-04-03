@@ -6,7 +6,7 @@
 
 - Updates to contribute section of readme
 
-# 2.1.1
+## 2.1.1
 
 - Adding the chompscan repo to the default.txt file to be cloned
 
