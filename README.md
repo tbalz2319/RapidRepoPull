@@ -149,7 +149,7 @@
 
 - Clean up code
 
-- Implemnt new features to enhance functionality via cli
+- Implement new features to enhance functionality via cli
 
 ## Contribute
 
