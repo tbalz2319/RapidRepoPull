@@ -15,7 +15,7 @@ stop = 0
 
 # Function to handle processing of commands
 def subprocess_cmd(command):
-
+    # The actual name of the repo is pulled from the url in order to display it to the user
     name = command[2].split("/")[-1].replace(".git", "")
 
     process = subprocess.Popen(command, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
@@ -33,7 +33,7 @@ def subprocess_cmd(command):
     lock.release()
 
 def intro():
-     # Display ASCII art from text file below
+    # Display ASCII art from text file below
     with open('ascii.txt', 'r') as f:
         for line in f:
             print(line.rstrip())
@@ -68,6 +68,7 @@ def cli(verbose, file, thread):
         # It includes a list of user specified Github repos line by line
         with open(file) as repofile:
             for line in repofile:
+                # .strip() removes the whitespace from the beginning and end of the string
                 line = line.strip()
                 p = giturlparse.parse(line)
                 p_new = p.owner + '/' + p.repo
@@ -81,7 +82,6 @@ def cli(verbose, file, thread):
             q.put(git_repo)
 
         # Worker function is defined below which will perform the work on the worker_data list
-
         def worker():
           while not stop:
             item = q.get()
@@ -89,8 +89,6 @@ def cli(verbose, file, thread):
             q.task_done()
 
         print("\nCreating %d threads...\n" % thread)
-        #cpus = 10
-        #print("\nPulling git repos with %d threads...\n" % cpus))
         for i in range(thread):
             t = threading.Thread(target=worker)
             t.daemon = True

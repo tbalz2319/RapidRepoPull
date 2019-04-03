@@ -1,4 +1,8 @@
-# 2.1.2
+# 2.1.3
+
+- Rapid.py file is cleaned up with useful comments on what specific lines of code are doing
+
+## 2.1.2
 
 - Updates to contribute section of readme
 
