@@ -42,7 +42,7 @@
 
 ## Usage Option 1 Automatic (Docker)
 
-### This option does not allow a user to specify the number of threads or a a text file including additional repos
+### This option does not allow a user to specify the number of threads or a text file including additional repos
 
 - Clone code repo
 
