@@ -8,6 +8,8 @@ import queue
 import threading
 import multiprocessing
 import giturlparse
+import urllib3
+from bs4 import BeautifulSoup
 
 # When acquired by a thread it locks other threads from printing
 lock = threading.Lock()
@@ -43,10 +45,11 @@ def intro():
 @click.option('--verbose', '-v', multiple=True, is_flag=True, help="Will print verbose messages.")
 # Interesting note below, the multiple option lets you changethe values of the option to a tuple if its true
 # If it is not true, then the value is a single value
-@click.option('--file', '-f', multiple=False,  default='default.txt' , help='Specify a text file with a list of user selected Github repos')
+@click.option('--file', '-f', multiple=False, help='Specify a text file with a list of user selected Github repos')
 @click.option('--thread', '-t', multiple=False, default=multiprocessing.cpu_count(), help='Specify the number of CPU threads to use')
+@click.option('--url', '-u', multiple=False, default='https://github.com/apsdehal/awesome-ctf', help='Specify a url to scrape for Github repos to clone')
 
-def cli(verbose, file, thread):
+def cli(verbose, file, thread, url):
     worker_data = []
 
     if thread < 1:
@@ -97,6 +100,64 @@ def cli(verbose, file, thread):
         q.join() # Blocks everything until all tasks in the queue have completed, then it print the messages below
         print("Program has successfully completed execution...")
         print(colored("Please check output...", 'yellow'))
+
+    if url:
+        if verbose:
+            click.echo('The url which will be scaped for repos is ... {}'.format(url))
+        # Open either supplied text file or default file
+        # It includes a list of user specified Github repos line by line
+        http = urllib3.PoolManager()
+        response = http.request('GET', url)
+        soup = BeautifulSoup(response.data.decode('utf-8'))
+        links = soup.find_all('a')
+
+
+        file = open('red.txt', 'wb')
+        print('Collecting the links...')
+        for link in links:
+            href = link.get('href') + '\n'
+            file.write(href.encode())
+        file.close()
+        print('Saved to %s' % 'red.txt')
+        # file = open(links.txt, 'wb')
+        # for tag in links:
+        #     link = tag.get('href',None)
+        #     print('Collecting the links...')
+        #     link = link.strip()
+        #     file.write(link.encode())
+        # file.close()
+        # with open(file) as repofile:
+        #     for line in repofile:
+        #         # .strip() removes the whitespace from the beginning and end of the string
+        #         line = line.strip()
+        #         p = giturlparse.parse(line)
+        #         p_new = p.owner + '/' + p.repo
+        #         worker_data.append(p_new)
+        
+        # if verbose:
+        #     print('Installed: [%s]' % ', '.join(map(str, worker_data)))
+
+        # q = queue.Queue()
+        # for git_repo in worker_data:
+        #     q.put(git_repo)
+
+        # # Worker function is defined below which will perform the work on the worker_data list
+        # def worker():
+        #   while not stop:
+        #     item = q.get()
+        #     subprocess_cmd(["/usr/bin/git", "clone", "https://github.com/{}.git".format(item)])
+        #     q.task_done()
+
+        # print("\nCreating %d threads...\n" % thread)
+        # for i in range(thread):
+        #     t = threading.Thread(target=worker)
+        #     t.daemon = True
+        #     t.start()
+
+        #q.join() # Blocks everything until all tasks in the queue have completed, then it print the messages below
+        print("Program has successfully completed execution...")
+        print(colored("Please check output...", 'yellow'))
+
 
  # Initial main part of program below
  # The part below installs all built in repos consumed by the program
