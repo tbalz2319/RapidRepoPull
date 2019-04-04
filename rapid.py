@@ -98,8 +98,7 @@ def cli(verbose, file, thread):
         print("Program has successfully completed execution...")
         print(colored("Please check output...", 'yellow'))
 
- # Initial main part of program below
- # The part below installs all built in repos consumed by the program
+ # Miain part of program below
 
 if __name__ == "__main__":
     #Show intro ASCII Art (Step1)
