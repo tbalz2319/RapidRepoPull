@@ -10,6 +10,8 @@ import multiprocessing
 import giturlparse
 import urllib3
 from bs4 import BeautifulSoup
+import re
+urllib3.disable_warnings(urllib3.exceptions.InsecureRequestWarning)
 
 # When acquired by a thread it locks other threads from printing
 lock = threading.Lock()
@@ -108,8 +110,8 @@ def cli(verbose, file, thread, url):
         # It includes a list of user specified Github repos line by line
         http = urllib3.PoolManager()
         response = http.request('GET', url)
-        soup = BeautifulSoup(response.data.decode('utf-8'))
-        links = soup.find_all('a')
+        soup = BeautifulSoup(response.data.decode('utf-8'), "html.parser")
+        links = soup.find_all('a', {'href': re.compile(r'github\.com/([^\/]+)/([^\/]+$)')})
 
 
         file = open('red.txt', 'wb')
@@ -126,33 +128,33 @@ def cli(verbose, file, thread, url):
         #     link = link.strip()
         #     file.write(link.encode())
         # file.close()
-        # with open(file) as repofile:
-        #     for line in repofile:
+        with open('red.txt') as repofile:
+             for line in repofile:
         #         # .strip() removes the whitespace from the beginning and end of the string
-        #         line = line.strip()
-        #         p = giturlparse.parse(line)
-        #         p_new = p.owner + '/' + p.repo
-        #         worker_data.append(p_new)
+                 line = line.strip()
+                 p = giturlparse.parse(line)
+                 p_new = p.owner + '/' + p.repo
+                 worker_data.append(p_new)
         
-        # if verbose:
-        #     print('Installed: [%s]' % ', '.join(map(str, worker_data)))
+        if verbose:
+            print('Installed: [%s]' % ', '.join(map(str, worker_data)))
 
-        # q = queue.Queue()
-        # for git_repo in worker_data:
-        #     q.put(git_repo)
+        q = queue.Queue()
+        for git_repo in worker_data:
+            q.put(git_repo)
 
-        # # Worker function is defined below which will perform the work on the worker_data list
-        # def worker():
-        #   while not stop:
-        #     item = q.get()
-        #     subprocess_cmd(["/usr/bin/git", "clone", "https://github.com/{}.git".format(item)])
-        #     q.task_done()
+        # Worker function is defined below which will perform the work on the worker_data list
+        def worker2():
+          while not stop:
+            item = q.get()
+            subprocess_cmd(["/usr/bin/git", "clone", "https://github.com/{}.git".format(item)])
+            q.task_done()
 
-        # print("\nCreating %d threads...\n" % thread)
-        # for i in range(thread):
-        #     t = threading.Thread(target=worker)
-        #     t.daemon = True
-        #     t.start()
+        print("\nCreating %d threads...\n" % thread)
+        for i in range(thread):
+            t = threading.Thread(target=worker2)
+            t.daemon = True
+            t.start()
 
         #q.join() # Blocks everything until all tasks in the queue have completed, then it print the messages below
         print("Program has successfully completed execution...")
