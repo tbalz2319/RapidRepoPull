@@ -47,7 +47,7 @@ def intro():
 @click.option('--verbose', '-v', multiple=True, is_flag=True, help="Will print verbose messages.")
 # Interesting note below, the multiple option lets you changethe values of the option to a tuple if its true
 # If it is not true, then the value is a single value
-@click.option('--fileinput', '-f', default='red.txt', multiple=False, help='Specify a text file with a list of user selected Github repos')
+@click.option('--fileinput', '-f', multiple=False, help='Specify a text file with a list of user selected Github repos')
 @click.option('--thread', '-t', multiple=False, default=multiprocessing.cpu_count(), help='Specify the number of CPU threads to use')
 @click.option('--url', '-u', multiple=False, help='Specify a url to scrape for Github repos to clone')
 
@@ -69,7 +69,7 @@ def cli(verbose, fileinput, thread, url):
 
     if fileinput:
         if verbose:
-            click.echo('The filename which contains user defined repos is called {}'.format(file))
+            click.echo('The filename which contains user defined repos is called {}'.format(fileinput))
         # Open either supplied text file or default file
         # It includes a list of user specified Github repos line by line
         with open(fileinput) as repofile:
@@ -124,45 +124,45 @@ def cli(verbose, fileinput, thread, url):
         print('Saved to %s' % 'red.txt')
         print("New file input being called")
         fileinput = "red.txt"
-        cli(fileinput)
-        # file = open(links.txt, 'wb')
-        # for tag in links:
-        #     link = tag.get('href',None)
-        #     print('Collecting the links...')
-        #     link = link.strip()
-        #     file.write(link.encode())
-        # file.close()
-        # with open('red.txt') as repofile:
-        #      for line in repofile:
-        # #         # .strip() removes the whitespace from the beginning and end of the string
-        #          line = line.strip()
-        #          g = giturlparse.parse(line)
-        #          g_new = g.owner + '/' + g.repo
-        #          worker_data2.append(g_new)
+        # cli(fileinput)
+        file = open(links.txt, 'wb')
+        for tag in links:
+            link = tag.get('href',None)
+            print('Collecting the links...')
+            link = link.strip()
+            file.write(link.encode())
+        file.close()
+        with open('red.txt') as repofile:
+             for line in repofile:
+        #         # .strip() removes the whitespace from the beginning and end of the string
+                 line = line.strip()
+                 g = giturlparse.parse(line)
+                 g_new = g.owner + '/' + g.repo
+                 worker_data2.append(g_new)
         
-        # if verbose:
-        #     print('Installed: [%s]' % ', '.join(map(str, worker_data2)))
+        if verbose:
+            print('Installed: [%s]' % ', '.join(map(str, worker_data2)))
 
-        # q = queue.Queue()
-        # for git_repo in worker_data2:
-        #     q.put(git_repo)
+        q = queue.Queue()
+        for git_repo in worker_data2:
+            q.put(git_repo)
 
-        # # Worker function is defined below which will perform the work on the worker_data list
-        # def worker2():
-        #   while not stop:
-        #     item = q.get()
-        #     subprocess_cmd(["/usr/bin/git", "clone", "https://github.com/{}.git".format(item)])
-        #     q.task_done()
+        # Worker function is defined below which will perform the work on the worker_data list
+        def worker2():
+          while not stop:
+            item = q.get()
+            subprocess_cmd(["/usr/bin/git", "clone", "https://github.com/{}.git".format(item)])
+            q.task_done()
 
-        # print("\nCreating %d threads...\n" % thread)
-        # for i in range(thread):
-        #     t = threading.Thread(target=worker2)
-        #     t.daemon = True
-        #     t.start()
+        print("\nCreating %d threads...\n" % thread)
+        for i in range(thread):
+            t = threading.Thread(target=worker2)
+            t.daemon = True
+            t.start()
 
-        # #q.join() # Blocks everything until all tasks in the queue have completed, then it print the messages below
-        # print("Program has successfully completed execution...")
-        # print(colored("Please check output...", 'yellow'))
+        #q.join() # Blocks everything until all tasks in the queue have completed, then it print the messages below
+        print("Program has successfully completed execution...")
+        print(colored("Please check output...", 'yellow'))
 
 
  # Initial main part of program below
