@@ -1,4 +1,12 @@
-# 2.1.3
+# 3.0.0
+
+- Updated master branch with new features
+
+- Added the ability to scrape a given url with the -u flag and clone any Github repos which are existing as links
+
+- Added the pip huepy library to the program to help with user cli notifications with colors
+
+## 2.1.3
 
 - Rapid.py file is cleaned up with useful comments on what specific lines of code are doing
 

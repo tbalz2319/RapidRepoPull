@@ -40,6 +40,6 @@ pip install --upgrade pip
 # Install requirements file
 pip install -r requirements.txt
 
-# Execute script
+# Execute script with all the default options
 time python rapid.py
 
