@@ -21,6 +21,6 @@ pip install -r requirements.txt
 
 # Ensure virtualenv is active after this script exits
 echo "${green}Activating virtual env via Python script..."
-python activate_venv.p
+python activate_venv.py
 
 echo "RapidRepoPull is ARMED for testing..."
