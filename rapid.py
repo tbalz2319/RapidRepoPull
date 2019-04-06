@@ -47,14 +47,13 @@ def intro():
 
 @click.command()
 @click.option('--verbose', '-v', multiple=True, is_flag=True, help="Will print verbose messages.")
-# Interesting note below, the multiple option lets you changethe values of the option to a tuple if its true
-# If it is not true, then the value is a single value
 @click.option('--fileinput', '-f', default='default.txt', multiple=False, help='Specify a text file with a list of user selected Github repos')
 @click.option('--thread', '-t', multiple=False, default=multiprocessing.cpu_count(), help='Specify the number of CPU threads to use')
 @click.option('--url', '-u', multiple=False, help='Specify a url to scrape containing Github repos to clone')
 
 def cli(verbose, fileinput, thread, url):
     worker_data = []
+    # The second array will only be utilized if a user specifies a url to scrape with the -u option
     worker_data2 = []
 
     if thread < 1:

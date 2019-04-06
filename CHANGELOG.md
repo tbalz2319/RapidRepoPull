@@ -1,5 +1,10 @@
+# 3.0.2
 
-# 3.0.1
+- Cleaned up @click section comments based on input provided by Codefactor
+
+- Provided comment on second worker_data=[] list purpose
+
+## 3.0.1
 
 - Updated readme file "Use case" section
 
