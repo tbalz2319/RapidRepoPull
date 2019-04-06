@@ -1,5 +1,9 @@
 
-# 3.0.0
+# 3.0.1
+
+- Updated readme file "Use case" section
+
+## 3.0.0
 
 - Updated master branch with new features
 
@@ -10,7 +14,6 @@
 ## 2.1.4
 
 - Adding rvrsh3ll/FindFrontableDomains to the clone list
-
 
 ## 2.1.3
 

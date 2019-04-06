@@ -1,9 +1,7 @@
 # RapidRepoPull
 
 ![os](https://img.shields.io/badge/OS-Linux,%20macOS-yellow.svg)
-
-![rapidrepoinstallver](https://img.shields.io/badge/version-3.0.0-red.svg)
-
+![rapidrepoinstallver](https://img.shields.io/badge/version-3.0.1-red.svg)
 [![Twitter](https://img.shields.io/badge/twitter-@xtbalz-blue.svg)](https://twitter.com/xtbalz)
 [![CodeFactor](https://www.codefactor.io/repository/github/tbalz2319/rapidrepopull/badge)](https://www.codefactor.io/repository/github/tbalz2319/rapidrepopull)
 [![Build Status](https://travis-ci.com/tbalz2319/RapidRepoPull.svg?token=QYYAGdpg1FpLiGsNAJgb&branch=master)](https://travis-ci.com/tbalz2319/RapidRepoPull)
@@ -29,6 +27,8 @@
 - Kick off multiple concurrent git clone tasks utilizing Python
 
 - Add remove repos to the worker_data list as needed in order to address indivudual use case/project needs
+
+- Clone repos to review offline while traveling without internet connectivity
 
 ## Requirements
 
