@@ -47,12 +47,13 @@ def intro():
 @click.option('--verbose', '-v', multiple=True, is_flag=True, help="Will print verbose messages.")
 # Interesting note below, the multiple option lets you changethe values of the option to a tuple if its true
 # If it is not true, then the value is a single value
-@click.option('--file', '-f', multiple=False, help='Specify a text file with a list of user selected Github repos')
+@click.option('--fileinput', '-f', default='red.txt', multiple=False, help='Specify a text file with a list of user selected Github repos')
 @click.option('--thread', '-t', multiple=False, default=multiprocessing.cpu_count(), help='Specify the number of CPU threads to use')
-@click.option('--url', '-u', multiple=False, default='https://github.com/apsdehal/awesome-ctf', help='Specify a url to scrape for Github repos to clone')
+@click.option('--url', '-u', multiple=False, help='Specify a url to scrape for Github repos to clone')
 
-def cli(verbose, file, thread, url):
+def cli(verbose, fileinput, thread, url):
     worker_data = []
+    worker_data2 = []
 
     if thread < 1:
         thread = multiprocessing.cpu_count()
@@ -66,12 +67,12 @@ def cli(verbose, file, thread, url):
             click.echo('The thread count will be the number of cores')
         click.echo('The thread count to use is: {0}'.format(thread))
 
-    if file:
+    if fileinput:
         if verbose:
             click.echo('The filename which contains user defined repos is called {}'.format(file))
         # Open either supplied text file or default file
         # It includes a list of user specified Github repos line by line
-        with open(file) as repofile:
+        with open(fileinput) as repofile:
             for line in repofile:
                 # .strip() removes the whitespace from the beginning and end of the string
                 line = line.strip()
@@ -108,7 +109,7 @@ def cli(verbose, file, thread, url):
             click.echo('The url which will be scaped for repos is ... {}'.format(url))
         # Open either supplied text file or default file
         # It includes a list of user specified Github repos line by line
-        http = urllib3.PoolManager()
+        http = urllib3.PoolManager(num_pools=15)
         response = http.request('GET', url)
         soup = BeautifulSoup(response.data.decode('utf-8'), "html.parser")
         links = soup.find_all('a', {'href': re.compile(r'github\.com/([^\/]+)/([^\/]+$)')})
@@ -121,6 +122,9 @@ def cli(verbose, file, thread, url):
             file.write(href.encode())
         file.close()
         print('Saved to %s' % 'red.txt')
+        print("New file input being called")
+        fileinput = "red.txt"
+        cli(fileinput)
         # file = open(links.txt, 'wb')
         # for tag in links:
         #     link = tag.get('href',None)
@@ -128,37 +132,37 @@ def cli(verbose, file, thread, url):
         #     link = link.strip()
         #     file.write(link.encode())
         # file.close()
-        with open('red.txt') as repofile:
-             for line in repofile:
-        #         # .strip() removes the whitespace from the beginning and end of the string
-                 line = line.strip()
-                 p = giturlparse.parse(line)
-                 p_new = p.owner + '/' + p.repo
-                 worker_data.append(p_new)
+        # with open('red.txt') as repofile:
+        #      for line in repofile:
+        # #         # .strip() removes the whitespace from the beginning and end of the string
+        #          line = line.strip()
+        #          g = giturlparse.parse(line)
+        #          g_new = g.owner + '/' + g.repo
+        #          worker_data2.append(g_new)
         
-        if verbose:
-            print('Installed: [%s]' % ', '.join(map(str, worker_data)))
+        # if verbose:
+        #     print('Installed: [%s]' % ', '.join(map(str, worker_data2)))
 
-        q = queue.Queue()
-        for git_repo in worker_data:
-            q.put(git_repo)
+        # q = queue.Queue()
+        # for git_repo in worker_data2:
+        #     q.put(git_repo)
 
-        # Worker function is defined below which will perform the work on the worker_data list
-        def worker2():
-          while not stop:
-            item = q.get()
-            subprocess_cmd(["/usr/bin/git", "clone", "https://github.com/{}.git".format(item)])
-            q.task_done()
+        # # Worker function is defined below which will perform the work on the worker_data list
+        # def worker2():
+        #   while not stop:
+        #     item = q.get()
+        #     subprocess_cmd(["/usr/bin/git", "clone", "https://github.com/{}.git".format(item)])
+        #     q.task_done()
 
-        print("\nCreating %d threads...\n" % thread)
-        for i in range(thread):
-            t = threading.Thread(target=worker2)
-            t.daemon = True
-            t.start()
+        # print("\nCreating %d threads...\n" % thread)
+        # for i in range(thread):
+        #     t = threading.Thread(target=worker2)
+        #     t.daemon = True
+        #     t.start()
 
-        #q.join() # Blocks everything until all tasks in the queue have completed, then it print the messages below
-        print("Program has successfully completed execution...")
-        print(colored("Please check output...", 'yellow'))
+        # #q.join() # Blocks everything until all tasks in the queue have completed, then it print the messages below
+        # print("Program has successfully completed execution...")
+        # print(colored("Please check output...", 'yellow'))
 
 
  # Initial main part of program below
