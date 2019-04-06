@@ -1,5 +1,6 @@
 .vscode
 venv
+red.txt
 temp
 ptf
 Empire
@@ -36,5 +37,7 @@ Hamburglar
 email-enum
 patator
 giturlparse
+Invoke-Phant0m
+chmomp-scan
 
 
