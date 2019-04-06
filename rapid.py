@@ -28,14 +28,14 @@ def subprocess_cmd(command):
 
     lock.acquire()
     if "fatal".encode("utf-8") not in err:
-        print (colored("[**] Successfully cloned {}\n".format(name), 'green'))
-        print (red('Test'))
+        print (good(colored("[**] Successfully cloned {}\n".format(name), 'green')))
+
     else:
         try:
             error = str(err, 'utf-8').strip().replace("\n", " ")
         except TypeError:
             error = err.strip().replace("\n", " ")
-        print (colored("[***] Problem occurred while cloning {}: {}\n".format(name, error),'red'))
+        print (bad(colored("[***] Problem occurred while cloning {}: {}\n".format(name, error),'red')))
     lock.release()
 
 def intro():
@@ -105,6 +105,7 @@ def cli(verbose, fileinput, thread, url):
         q.join() # Blocks everything until all tasks in the queue have completed, then it print the messages below
         print("Program has successfully completed execution...")
         print(colored("Please check output...", 'yellow'))
+        print (lightblue(info("All default options were used")))
 
     if url:
         if verbose:
@@ -157,7 +158,7 @@ def cli(verbose, fileinput, thread, url):
         q.join() # Blocks everything until all tasks in the queue have completed, then it print the messages below
         print("Program has successfully completed execution...")
         print(colored("Please check output...", 'yellow'))
-        print (red('Test'))
+        print (info(lightblue('A url was scaped')))
 
 
  # Initial main part of program below
