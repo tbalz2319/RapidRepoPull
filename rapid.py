@@ -12,6 +12,7 @@ import urllib3
 from bs4 import BeautifulSoup
 import re
 urllib3.disable_warnings(urllib3.exceptions.InsecureRequestWarning)
+from hue import *
 
 # When acquired by a thread it locks other threads from printing
 lock = threading.Lock()
@@ -28,6 +29,7 @@ def subprocess_cmd(command):
     lock.acquire()
     if "fatal".encode("utf-8") not in err:
         print (colored("[**] Successfully cloned {}\n".format(name), 'green'))
+        print bad('This Repo was a success')
     else:
         try:
             error = str(err, 'utf-8').strip().replace("\n", " ")
