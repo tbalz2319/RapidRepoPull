@@ -12,7 +12,7 @@ import urllib3
 from bs4 import BeautifulSoup
 import re
 urllib3.disable_warnings(urllib3.exceptions.InsecureRequestWarning)
-from hue import *
+from huepy import *
 
 # When acquired by a thread it locks other threads from printing
 lock = threading.Lock()
@@ -29,7 +29,7 @@ def subprocess_cmd(command):
     lock.acquire()
     if "fatal".encode("utf-8") not in err:
         print (colored("[**] Successfully cloned {}\n".format(name), 'green'))
-        print bad('This Repo was a success')
+        print (red('Test'))
     else:
         try:
             error = str(err, 'utf-8').strip().replace("\n", " ")
@@ -157,6 +157,7 @@ def cli(verbose, fileinput, thread, url):
         q.join() # Blocks everything until all tasks in the queue have completed, then it print the messages below
         print("Program has successfully completed execution...")
         print(colored("Please check output...", 'yellow'))
+        print (red('Test'))
 
 
  # Initial main part of program below
