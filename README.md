@@ -1,7 +1,9 @@
 # RapidRepoPull
 
 ![os](https://img.shields.io/badge/OS-Linux,%20macOS-yellow.svg)
-![rapidrepoinstallver](https://img.shields.io/badge/version-2.1.4-red.svg)
+
+![rapidrepoinstallver](https://img.shields.io/badge/version-3.0.0-red.svg)
+
 [![Twitter](https://img.shields.io/badge/twitter-@xtbalz-blue.svg)](https://twitter.com/xtbalz)
 [![CodeFactor](https://www.codefactor.io/repository/github/tbalz2319/rapidrepopull/badge)](https://www.codefactor.io/repository/github/tbalz2319/rapidrepopull)
 [![Build Status](https://travis-ci.com/tbalz2319/RapidRepoPull.svg?token=QYYAGdpg1FpLiGsNAJgb&branch=master)](https://travis-ci.com/tbalz2319/RapidRepoPull)
@@ -121,6 +123,7 @@
        -v, --verbose      Will print verbose messages.
        -f, --file TEXT    Specify a text file with a list of user selected Github repos
        -t, --thread TEXT  Specify the number of CPU threads to use
+       -u, --url TEXT     Specify a url to scrape containing Github repos to clone
        --help             Show this message and exit.```
 
 - Example specifying a custom text file with a list of repos and how many threads the script should use
@@ -130,6 +133,10 @@
 - The example file "bob.txt" is there to testing an example purposes
 
     ```python rapid.py -f bob.txt -t 25```
+
+- The example below with scrape a url containing Github to clone and provide verbose output, utilizing 75 threads
+
+   ```python rapid.py -v -u https://apsdehal.in/awesome-ctf -t 75```
 
 ## Update Program
 
