@@ -124,16 +124,6 @@ def cli(verbose, fileinput, thread, url):
         print('Saved to %s' % 'red.txt')
         print("New file input being called")
         
-        # file = open('red.txt', 'r')
-        # cli(file)
-        # file = open(links.txt, 'wb')
-        # for tag in links:
-        #     link = tag.get('href',None)
-        #     print('Collecting the links...')
-        #     link = link.strip()
-        #     file.write(link.encode())
-        # file.close()
-
         with open('red.txt') as repofile:
              for line in repofile:
         #         # .strip() removes the whitespace from the beginning and end of the string
