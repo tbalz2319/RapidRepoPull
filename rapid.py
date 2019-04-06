@@ -123,15 +123,17 @@ def cli(verbose, fileinput, thread, url):
         file.close()
         print('Saved to %s' % 'red.txt')
         print("New file input being called")
-        fileinput = "red.txt"
-        # cli(fileinput)
-        file = open(links.txt, 'wb')
-        for tag in links:
-            link = tag.get('href',None)
-            print('Collecting the links...')
-            link = link.strip()
-            file.write(link.encode())
-        file.close()
+        
+        # file = open('red.txt', 'r')
+        # cli(file)
+        # file = open(links.txt, 'wb')
+        # for tag in links:
+        #     link = tag.get('href',None)
+        #     print('Collecting the links...')
+        #     link = link.strip()
+        #     file.write(link.encode())
+        # file.close()
+
         with open('red.txt') as repofile:
              for line in repofile:
         #         # .strip() removes the whitespace from the beginning and end of the string
@@ -140,8 +142,8 @@ def cli(verbose, fileinput, thread, url):
                  g_new = g.owner + '/' + g.repo
                  worker_data2.append(g_new)
         
-        if verbose:
-            print('Installed: [%s]' % ', '.join(map(str, worker_data2)))
+        # if verbose:
+        #     print('Installed: [%s]' % ', '.join(map(str, worker_data2)))
 
         q = queue.Queue()
         for git_repo in worker_data2:
@@ -160,7 +162,7 @@ def cli(verbose, fileinput, thread, url):
             t.daemon = True
             t.start()
 
-        #q.join() # Blocks everything until all tasks in the queue have completed, then it print the messages below
+        q.join() # Blocks everything until all tasks in the queue have completed, then it print the messages below
         print("Program has successfully completed execution...")
         print(colored("Please check output...", 'yellow'))
 
