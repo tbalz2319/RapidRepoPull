@@ -35,7 +35,7 @@ def subprocess_cmd(command):
             error = str(err, 'utf-8').strip().replace("\n", " ")
         except TypeError:
             error = err.strip().replace("\n", " ")
-        print (bad(colored("[***] Problem occurred while cloning {}: {}\n".format(name, error),'red')))
+        print (bad(colored("[ERROR] Problem occurred while cloning {}: {}\n".format(name, error),'red')))
     lock.release()
 
 def intro():
