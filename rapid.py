@@ -161,8 +161,7 @@ def cli(verbose, fileinput, thread, url):
         print (info(lightblue('A url was scaped')))
 
 
- # Initial main part of program below
- # The part below installs all built in repos consumed by the program
+ # Miain part of program below
 
 if __name__ == "__main__":
     #Show intro ASCII Art (Step1)

@@ -1,7 +1,9 @@
 # RapidRepoPull
 
 ![os](https://img.shields.io/badge/OS-Linux,%20macOS-yellow.svg)
+
 ![rapidrepoinstallver](https://img.shields.io/badge/version-3.0.0-red.svg)
+
 [![Twitter](https://img.shields.io/badge/twitter-@xtbalz-blue.svg)](https://twitter.com/xtbalz)
 [![CodeFactor](https://www.codefactor.io/repository/github/tbalz2319/rapidrepopull/badge)](https://www.codefactor.io/repository/github/tbalz2319/rapidrepopull)
 [![Build Status](https://travis-ci.com/tbalz2319/RapidRepoPull.svg?token=QYYAGdpg1FpLiGsNAJgb&branch=master)](https://travis-ci.com/tbalz2319/RapidRepoPull)
@@ -42,7 +44,7 @@
 
 ## Usage Option 1 Automatic (Docker)
 
-### This option does not allow a user to specify the number of threads or a a text file including additional repos
+### This option does not allow a user to specify the number of threads or a text file including additional repos
 
 - Clone code repo
 
