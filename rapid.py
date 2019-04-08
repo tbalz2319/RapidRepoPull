@@ -108,7 +108,7 @@ def cli(verbose, fileinput, thread, url):
 
     if url:
         if verbose:
-            click.echo('The url which will be scaped for repos is ... {}'.format(url))
+            click.echo('The url which will be scraped for repos is ... {}'.format(url))
         # Open either supplied text file or default file
         # It includes a list of user specified Github repos line by line
         http = urllib3.PoolManager(num_pools=15)
@@ -157,7 +157,7 @@ def cli(verbose, fileinput, thread, url):
         q.join() # Blocks everything until all tasks in the queue have completed, then it print the messages below
         print("Program has successfully completed execution...")
         print(colored("Please check output...", 'yellow'))
-        print (info(lightblue('A url was scaped')))
+        print (info(lightblue('A url was scraped')))
 
 
  # Miain part of program below

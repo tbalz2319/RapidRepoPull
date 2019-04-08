@@ -1,0 +1,6 @@
+https://github.com/GhostPack/SharpUp.git
+https://github.com/byt3bl33d3r/DeathStar.git
+https://github.com/laramies/theHarvester.git
+https://github.com/s0md3v/Photon.git
+https://github.com/commixproject/commix.git
+https://github.com/bwall/ExtractHosts.git

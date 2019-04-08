@@ -1,4 +1,14 @@
-# 3.0.2
+# 3.0.3
+
+- Fixed typos in main rapid.py file
+
+- Created a demo.txt file
+
+- Updated dockerfile to specify python3 instead of python
+
+- Updated boot.sh for Docker container to run a minimal number of repositories for demo purposes
+
+## 3.0.2
 
 - Cleaned up @click section comments based on input provided by Codefactor
 
