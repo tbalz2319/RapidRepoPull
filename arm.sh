@@ -23,4 +23,4 @@ pip install -r requirements.txt
 echo "${green}Activating virtual env via Python script..."
 python activate_venv.py
 
-echo "RapidRepoPull is ARMED for testing..."
+echo "RapidRepoPull is ARMED and ready for testing..."
