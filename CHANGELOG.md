@@ -1,4 +1,10 @@
-# 3.0.3
+# 3.0.4
+
+- Removed demo.txt file
+
+- Added rm -f red.txt in clean.sh
+
+## 3.0.3
 
 - Fixed typos in main rapid.py file
 

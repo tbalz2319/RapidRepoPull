@@ -16,7 +16,6 @@ https://github.com/Grunny/zap-cli.git
 https://github.com/tevora-threat/PowerView3-Aggressor.git
 https://github.com/vysecurity/ANGRYPUPPY.git
 https://github.com/harleyQu1nn/AggressorScripts.git
-https://github.com/bluscreenofjeff/AggressorScripts.git
 https://github.com/pavanw3b/sh00t.git
 https://github.com/evyatarmeged/Raccoon.git
 https://github.com/1N3/IntruderPayloads.git
