@@ -1,4 +1,8 @@
-# 3.0.4
+# 3.0.5
+
+- Bash script fixups implemented and testing recommended by codefactor
+
+## 3.0.4
 
 - Removed demo.txt file
 

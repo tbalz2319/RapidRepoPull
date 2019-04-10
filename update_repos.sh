@@ -3,7 +3,7 @@
 # Mass update all indivudual repos
 
 # To help set echo output in green
-green=`tput setaf 2`
+green=$(tput setaf 2)
 
 # Save the name of all dirs to the dirs variable
 # The grep -v 'venv' will remove the venv directory as it does not have
@@ -12,8 +12,10 @@ dirs=`ls -d */ | grep -v 'venv'`
 
 for dir in $dirs     # list directories in the current folder
 do
-    #Display dir name 
+    #Display dir name and cd into dir and cd .. using a subshell
+    (
     echo "${green}${dir}"
-    #chain 3 commands in one line below
-    cd ${dir} ; git pull ; cd ..
+    cd ${dir} || exit 
+    git pull
+    )
 done
