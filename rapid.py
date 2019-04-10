@@ -117,12 +117,12 @@ def cli(verbose, fileinput, thread, url):
         links = soup.find_all('a', {'href': re.compile(r'github\.com/([^\/]+)/([^\/]+$)')})
 
 
-        file = open('red.txt', 'wb')
+        file1 = open('red.txt', 'wb')
         print('Collecting the links...')
         for link in links:
             href = link.get('href') + '\n'
-            file.write(href.encode())
-        file.close()
+            file1.write(href.encode())
+        file1.close()
         print('Saved to %s' % 'red.txt')
         print("New file input being called")
         
