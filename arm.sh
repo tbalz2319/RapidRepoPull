@@ -3,7 +3,7 @@
 #  Arm all the requirements for the RapidRepoPull to execute
 
 green=$(tput setaf 2)
-cyan=$(tput setaf 2)
+cyan=$(tput setaf 6)
 
 # Set virtual env with Python3
 echo "${cyan}Setting up Python3 virtual env"
