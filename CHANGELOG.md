@@ -1,4 +1,8 @@
-# 3.0.5
+# 3.0.6
+
+- Removed bob.txt and added useful repos to demo.txt
+
+## 3.0.5
 
 - Bash script fixups implemented and testing recommended by codefactor
 
