@@ -1,4 +1,8 @@
-# 3.0.5
+# 3.0.6
+
+- Removing bob.txt example file as it is no longer needed
+
+## 3.0.5
 
 - Bash script fixups implemented and testing recommended by codefactor
 

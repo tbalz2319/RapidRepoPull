@@ -33,3 +33,5 @@ https://github.com/hlldz/Invoke-Phant0m.git
 https://github.com/codingo/Interlace.git
 https://github.com/SolomonSklash/chomp-scan.git
 https://github.com/rvrsh3ll/FindFrontableDomains.git
+git@github.com:lanjelot/patator.git
+https://github.com/api0cradle/UltimateAppLockerByPassList
