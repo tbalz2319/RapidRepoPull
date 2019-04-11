@@ -1,4 +1,10 @@
-# 3.0.6
+# 3.0.7
+
+- Update to install.sh to use the Cyan color in the script
+
+- Update to install.sh to replace backticks with $() per codefactor
+
+## 3.0.6
 
 - Removed bob.txt and added useful repos to demo.txt
 
