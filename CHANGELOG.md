@@ -1,4 +1,8 @@
-# 3.0.7
+# 3.0.8
+
+- Adding Joomscan and LinEnum to the default.txt repos to clone
+
+## 3.0.7
 
 - Update to install.sh to use the Cyan color in the script
 
