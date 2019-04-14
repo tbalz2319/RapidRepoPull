@@ -1,6 +1,6 @@
 # 3.0.9
 
-- Fixed comment type in rapid.py and increased the num of pools in the url parser
+- Fixed comment typo in rapid.py and increased the num of pools in the url parser
 
 ## 3.0.8
 
