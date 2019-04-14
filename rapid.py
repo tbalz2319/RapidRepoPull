@@ -111,7 +111,7 @@ def cli(verbose, fileinput, thread, url):
             click.echo('The url which will be scraped for repos is ... {}'.format(url))
         # Open either supplied text file or default file
         # It includes a list of user specified Github repos line by line
-        http = urllib3.PoolManager(num_pools=15)
+        http = urllib3.PoolManager(num_pools=20)
         response = http.request('GET', url)
         soup = BeautifulSoup(response.data.decode('utf-8'), "html.parser")
         links = soup.find_all('a', {'href': re.compile(r'github\.com/([^\/]+)/([^\/]+$)')})
@@ -159,9 +159,7 @@ def cli(verbose, fileinput, thread, url):
         print(colored("Please check output...", 'yellow'))
         print (info(lightblue('A url was scraped')))
 
-
- # Miain part of program below
-
+ # Main part of program below
 if __name__ == "__main__":
     #Show intro ASCII Art (Step1)
     intro()
