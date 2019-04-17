@@ -1,4 +1,8 @@
-# 3.0.9
+# 3.1.0
+
+- Adding LinEnum, and joomscan to .gitignore
+
+## 3.0.9
 
 - Fixed comment typo in rapid.py and increased the num of pools in the url parser
 
