@@ -1,4 +1,12 @@
-# 3.1.0
+# 3.1.1
+
+- Upgrade of all pip packages in requirements.txt
+
+- Added the gobuster tool to the default.txt clone list
+
+- Addressed potential security vulnerability in urllib3
+
+## 3.1.0
 
 - Adding LinEnum, and joomscan to .gitignore
 

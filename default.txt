@@ -38,3 +38,4 @@ git@github.com:lanjelot/patator.git
 https://github.com/api0cradle/UltimateAppLockerByPassList
 https://github.com/rebootuser/LinEnum.git
 https://github.com/rezasp/joomscan.git
+https://github.com/OJ/gobuster.git
