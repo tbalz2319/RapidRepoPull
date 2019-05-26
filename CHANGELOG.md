@@ -1,4 +1,8 @@
-# 3.1.1
+# 3.1.2
+
+- Adding ldapdomaindump tool to default list
+
+## 3.1.1
 
 - Upgrade of all pip packages in requirements.txt
 
