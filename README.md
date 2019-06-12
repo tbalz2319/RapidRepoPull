@@ -26,7 +26,7 @@
 
 - Kick off multiple concurrent git clone tasks utilizing Python
 
-- Add remove repos to the worker_data list as needed in order to address indivudual use case/project needs
+- Add/remove Security related Github repos to the default.xt list as needed in order to address     indivudual use case/project needs
 
 - Clone repos to review offline while traveling without internet connectivity
 
