@@ -1,4 +1,9 @@
-# 3.1.2
+# 3.1.3
+
+- Adding RapidScan and the foospidy payloads repo for a nice quick
+  dir of payloads to have for web application security testing and CTFs
+
+## 3.1.2
 
 - Adding ldapdomaindump tool to default list
 

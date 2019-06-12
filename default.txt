@@ -40,3 +40,5 @@ https://github.com/rebootuser/LinEnum.git
 https://github.com/rezasp/joomscan.git
 https://github.com/OJ/gobuster.git
 https://github.com/dirkjanm/ldapdomaindump
+https://github.com/skavngr/rapidscan.git
+https://github.com/foospidy/payloads.git
