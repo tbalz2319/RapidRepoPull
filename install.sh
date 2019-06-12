@@ -21,8 +21,6 @@
 #     # Do something under 64 bits Windows NT platform
 # fi
 
-
-
 green=$(tput setaf 2)
 cyan=$(tput setaf 6)
 

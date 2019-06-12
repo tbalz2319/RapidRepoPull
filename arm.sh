@@ -12,7 +12,7 @@ python3 -m venv venv
 echo "${green}Activating virtaul env"
 source venv/bin/activate
 
-# Upddate virtual pip version
+# Update virtual pip version
 echo "${green}Upgrading virtual pip version"
 pip install --upgrade pip
 
