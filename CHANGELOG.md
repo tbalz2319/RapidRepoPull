@@ -1,4 +1,9 @@
-# 3.1.4 
+# 3.1.5
+
+- Increasing repo pull threads to 75 from 35 when running the container to pull
+  repos
+
+## 3.1.4
 
 - Adding the SpiderLabs Scavenger tool to the default clone list
 
