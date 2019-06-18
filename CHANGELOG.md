@@ -1,4 +1,8 @@
-# 3.1.3
+# 3.1.4 
+
+- Adding the SpiderLabs Scavenger tool to the default clone list
+
+## 3.1.3
 
 - Adding RapidScan and the foospidy payloads repo for a nice quick
   dir of payloads to have for web application security testing and CTFs
