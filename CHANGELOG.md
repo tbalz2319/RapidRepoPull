@@ -1,9 +1,9 @@
 # 3.1.5
 
-- Adding the HoneyBadger tool from TrustedSec to the default clone
-  list 
+- Increasing repo pull threads to 75 from 35 when running the container to pull
+  repos
 
-## 3.1.4 
+## 3.1.4
 
 - Adding the SpiderLabs Scavenger tool to the default clone list
 
