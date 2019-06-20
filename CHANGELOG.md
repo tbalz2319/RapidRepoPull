@@ -1,4 +1,9 @@
-# 3.1.4 
+# 3.1.5
+
+- Adding the HoneyBadger tool from TrustedSec to the default clone
+  list 
+
+## 3.1.4 
 
 - Adding the SpiderLabs Scavenger tool to the default clone list
 
