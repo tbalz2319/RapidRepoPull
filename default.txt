@@ -45,3 +45,4 @@ https://github.com/foospidy/payloads.git
 https://github.com/SpiderLabs/scavenger.git
 https://github.com/trustedsec/HoneyBadger.git
 https://github.com/Coalfire-Research/pymetasploit3.git
+https://github.com/JohnHammond/ctf-katana.git

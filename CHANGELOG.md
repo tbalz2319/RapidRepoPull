@@ -1,4 +1,8 @@
-# 3.1.5
+# 3.1.6
+
+- Adding John Hammond's CTF Kitana repo to the default clone list
+
+## 3.1.5
 
 - Increasing repo pull threads to 75 from 35 when running the container to pull
   repos
