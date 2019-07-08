@@ -1,4 +1,10 @@
-# 3.1.6
+# 3.1.7
+
+- Adding web app recon tools created by @TomNomNom to the default clone list
+
+- The tools are assetfinder and httprobe
+
+## 3.1.6
 
 - Adding John Hammond's CTF Kitana repo to the default clone list
 

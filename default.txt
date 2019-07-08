@@ -46,3 +46,5 @@ https://github.com/SpiderLabs/scavenger.git
 https://github.com/trustedsec/HoneyBadger.git
 https://github.com/Coalfire-Research/pymetasploit3.git
 https://github.com/JohnHammond/ctf-katana.git
+https://github.com/tomnomnom/assetfinder.git
+https://github.com/tomnomnom/httprobe.git
