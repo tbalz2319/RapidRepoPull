@@ -1,10 +1,9 @@
 #!/usr/bin/env bash
 
-#  Arm all the requirements for the RapidRepoPull to execute
-
+# Arm all the requirements for the RapidRepoPull to execute
 green=$(tput setaf 2)
 
-# Set virtual env with Python3
+#Set virtual env with Python3
 echo "${green}Setting up Python3 virtual env"
 python3 -m venv venv
 
@@ -12,14 +11,14 @@ python3 -m venv venv
 echo "${green}Activating virtaul env"
 source venv/bin/activate
 
-# Update virtual pip version
+#Update virtual pip version
 echo "${green}Upgrading virtual pip version"
 pip install --upgrade pip
 
-# Install requirements file
+#Install requirements file
 pip install -r requirements.txt
 
-# Ensure virtualenv is active after this script exits
+#Ensure virtualenv is active after this script exits
 echo "${green}Activating virtual env via Python script..."
 python activate_venv.py
 

@@ -1,4 +1,8 @@
-# 3.1.7
+# 3.1.8
+
+- Cleanup and maintenance of various comments and spacing issues in various scripts and files
+
+## 3.1.7
 
 - Adding web app recon tools created by @TomNomNom to the default clone list
 
