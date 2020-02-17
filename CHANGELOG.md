@@ -1,4 +1,9 @@
-# 3.1.9
+# 3.2.0
+
+- Adding the Linux threat emulation framework "Chain Reactor" to the default
+clone list
+
+## 3.1.9
 
 - Update of boot.sh file to increase thread execution of program inside of
 Docker container from 75 to 85
