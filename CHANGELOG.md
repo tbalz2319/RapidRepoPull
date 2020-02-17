@@ -1,4 +1,9 @@
-# 3.1.8
+# 3.1.9
+
+- Update of boot.sh file to increase thread execution of program inside of
+Docker container from 75 to 85
+
+## 3.1.8
 
 - Cleanup and maintenance of various comments and spacing issues in various scripts and files
 
