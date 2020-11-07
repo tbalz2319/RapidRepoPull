@@ -1,3 +1,4 @@
+# Python3 libraries required for the successful setup of this script
 import os
 import sys
 import click
