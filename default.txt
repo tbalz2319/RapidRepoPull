@@ -50,4 +50,6 @@ https://github.com/tomnomnom/assetfinder.git
 https://github.com/tomnomnom/httprobe.git
 https://github.com/redcanaryco/chain-reactor
 https://github.com/21y4d/nmapAutomator
+https://github.com/cddmp/enum4linux-ng
+https://github.com/FSecureLABS/leonidas
 

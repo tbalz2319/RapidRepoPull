@@ -1,3 +1,8 @@
+# 3.2.2
+
+- Adding the https://github.com/FSecureLABS/leonidas repo to the default install list of tools
+- Adding the https://github.com/cddmp/enum4linux-ng repo to the default install list of tools
+- Update to readme file
 # 3.2.1
 
 - Update to license file date
