@@ -1,15 +1,20 @@
-# 3.2.2
+# 3.2.3
+- Adding the https://github.com/j3ssie/Osmedeus repo to the default install list of tools
+- Adding the https://github.com/projectdiscovery/nuclei to the default list of tools 
+- Adding the https://github.com/chryzsh/awesome-windows-security repo to the default list of tools 
+- Update to the readme file 
+## 3.2.2
 
 - Adding the https://github.com/FSecureLABS/leonidas repo to the default install list of tools
 - Adding the https://github.com/cddmp/enum4linux-ng repo to the default install list of tools
-- Update to readme file
-# 3.2.1
+- Update to the readme file
+## 3.2.1
 
 - Update to license file date
 - Clean up of install.sh script (removed un-needed comments)
 - Adding the https://github.com/21y4d/nmapAutomator repo to the default install list of tools
 
-# 3.2.0
+## 3.2.0
 
 - Adding the Linux threat emulation framework "Chain Reactor" to the default
 clone list
