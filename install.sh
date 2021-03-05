@@ -21,5 +21,5 @@ pip install --upgrade pip
 pip install -r requirements.txt
 
 # Execute script with all the default options
-time python rapid.py -t 55
+time python rapid.py -t 65
 

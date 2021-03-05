@@ -1,3 +1,5 @@
+# 3.2.4
+- Updated the default thread limit from 55 to 65
 # 3.2.3
 - Adding the https://github.com/j3ssie/Osmedeus repo to the default install list of tools
 - Adding the https://github.com/projectdiscovery/nuclei to the default list of tools 
