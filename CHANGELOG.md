@@ -1,3 +1,7 @@
+# 3.2.5
+- Fixing issue with giturlparse that using the ssh version of git instead of https
+- had to update all default.txt to change all existing repos to match ssh git urls instead of https
+- Removed all requirements.txt files which were of no use
 # 3.2.4
 - Updated the default thread limit from 55 to 65
 # 3.2.3

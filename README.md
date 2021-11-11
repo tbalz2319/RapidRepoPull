@@ -1,7 +1,7 @@
 # RapidRepoPull
 
 ![os](https://img.shields.io/badge/OS-Linux,%20macOS-yellow.svg)
-![rapidrepoinstallver](https://img.shields.io/badge/version-3.2.3-red.svg)
+![rapidrepoinstallver](https://img.shields.io/badge/version-3.2.5-red.svg)
 [![Twitter](https://img.shields.io/badge/twitter-@xtbalz-blue.svg)](https://twitter.com/xtbalz)
 [![CodeFactor](https://www.codefactor.io/repository/github/tbalz2319/rapidrepopull/badge)](https://www.codefactor.io/repository/github/tbalz2319/rapidrepopull)
 [![Build Status](https://travis-ci.com/tbalz2319/RapidRepoPull.svg?token=QYYAGdpg1FpLiGsNAJgb&branch=master)](https://travis-ci.com/tbalz2319/RapidRepoPull)
@@ -32,7 +32,7 @@
 
 ## Requirements
 
-- This program was tested with Python version 3.7.2 64-bit
+- This program was tested with Python3 version 3.8.9 64-bit
 
 - Ensure the Python3 virtual environment package is installed (Ubuntu)
 

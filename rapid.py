@@ -9,6 +9,7 @@ import queue
 import threading
 import multiprocessing
 import giturlparse
+from giturlparse import parse
 import urllib3
 from bs4 import BeautifulSoup
 import re
@@ -78,7 +79,7 @@ def cli(verbose, fileinput, thread, url):
             for line in repofile:
                 # .strip() removes the whitespace from the beginning and end of the string
                 line = line.strip()
-                p = giturlparse.parse(line)
+                p = parse(line)
                 p_new = p.owner + '/' + p.repo
                 worker_data.append(p_new)
 
@@ -131,7 +132,7 @@ def cli(verbose, fileinput, thread, url):
              for line in repofile:
         #         # .strip() removes the whitespace from the beginning and end of the string
                  line = line.strip()
-                 g = giturlparse.parse(line)
+                 g = parse(line)
                  g_new = g.owner + '/' + g.repo
                  worker_data2.append(g_new)
         
