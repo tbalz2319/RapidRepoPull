@@ -13,7 +13,7 @@ idna==2.8
 more-itertools==7.0.0
 pipreqs==0.4.9
 pluggy==0.9.0
-py==1.8.0
+py==1.10.0
 pytest==4.4.1
 requests==2.21.0
 six==1.12.0
