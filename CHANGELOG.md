@@ -1,3 +1,46 @@
+# 4.1.0
+
+Four additions aimed at the parts of 4.0 that were still weak: the list had
+no way to know it had rotted, no way to clone a subset, no record of what it
+had done, and still only cloned.
+
+## Added
+- `--doctor` checks every entry against the GitHub API and reports renames,
+  archived projects, deletions, private repositories and anything with no push
+  in `--stale-days` (default 730). Non-GitHub remotes are checked with
+  `git ls-remote`. `--fix` writes the answers back into the list file, editing
+  it line by line so comments, ordering and tags survive; re-running it is a
+  no-op. Entries that cannot be cloned exit nonzero, so it works as a CI check
+- A weekly `list-health` workflow runs `--doctor` with `GITHUB_TOKEN`, and a
+  manual dispatch can run `--fix` and open a pull request
+- `--tag` and `--list-tags`. A `# @tag: name` directive labels every repository
+  after it until the next directive, and a trailing comment tags one line.
+  The bundled list's nine sections are now tags: wordlists, recon, web,
+  windows, c2, linux, blueteam, frameworks, reading
+- `.rapidrepopull.json` in the output directory records the URL, tags and
+  checked-out commit of everything cloned, so a later run reports only what
+  actually moved. `--no-manifest` turns it off
+- `--prune` removes clones whose entries have left the list. It only considers
+  directories the manifest says RapidRepoPull created, asks before deleting
+  unless `-y/--yes` is given, and compares against the whole list rather than
+  the `--tag` subset
+- `--install` builds repositories that declare how: `go.mod`, `pyproject.toml`,
+  `setup.py`, `requirements.txt` and `package.json`. It does not run a
+  repository's own `install.sh`; cmake, gradle, maven, cargo, Makefiles and
+  Visual Studio projects are reported as needing manual steps, and pure-data
+  repositories as having nothing to build. Python tools go to pipx or a
+  virtualenv inside the clone, never system site-packages
+
+## Changed
+- A repository listed twice keeps the union of its tags rather than the first
+  set seen, which also merges tags when the same repo arrives from a file and
+  from a scraped page
+
+## Notes
+- Running `--doctor` over the bundled list found 2 archived repositories and 27
+  with no push in over two years. They still clone, so they are annotated
+  rather than removed
+
 # 4.0.0
 
 Major rewrite. The single `rapid.py` script is now the `rapidrepopull` package,
