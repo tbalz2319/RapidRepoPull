@@ -232,3 +232,64 @@ def doctor_fixes(fixes, *, path) -> None:
         click.secho(f"  line {fix.lineno}:", fg="bright_black")
         click.secho(f"    - {fix.before.strip()}", fg="red")
         click.secho(f"    + {fix.after.strip()}", fg="green")
+
+
+_INSTALL_STYLE = {
+    "installed": ("[+]", "green"),
+    "nothing": ("[.]", "bright_black"),
+    "manual": ("[>]", "yellow"),
+    "missing-tool": ("[!]", "yellow"),
+    "failed": ("[x]", "red"),
+    "skipped": ("[-]", "bright_black"),
+}
+
+_INSTALL_HEADING = {
+    "installed": "Installed",
+    "manual": "Need manual steps",
+    "missing-tool": "Toolchain not installed",
+    "failed": "Failed to build",
+    "nothing": "Nothing to install",
+    "skipped": "Skipped",
+}
+
+
+def install_report(results, *, verbose: bool = False) -> None:
+    """Print what the installer did, grouped by outcome."""
+    if not results:
+        return
+
+    order = ["failed", "missing-tool", "manual", "installed", "skipped", "nothing"]
+    grouped: dict[str, list] = {}
+    for result in results:
+        grouped.setdefault(result.outcome.value, []).append(result)
+
+    click.echo()
+    click.secho("Install", bold=True)
+    for key in order:
+        found = grouped.get(key)
+        if not found:
+            continue
+        # "nothing to install" is the expected outcome for every wordlist and
+        # payload collection in the list, so it is a count unless asked for.
+        if key == "nothing" and not verbose:
+            noun = "repository" if len(found) == 1 else "repositories"
+            click.secho(
+                f"  {len(found)} {noun} had nothing to install (data only).",
+                fg="bright_black",
+            )
+            continue
+        marker, colour = _INSTALL_STYLE.get(key, ("[?]", "white"))
+        click.secho(f"  {_INSTALL_HEADING.get(key, key)} ({len(found)})", fg=colour)
+        for result in found:
+            line = f"    {click.style(marker, fg=colour)} {result.name}"
+            if result.detail:
+                line += click.style(f" -- {result.detail}", fg="bright_black")
+            click.echo(line)
+
+    installed = len(grouped.get("installed", []))
+    failed = len(grouped.get("failed", []))
+    click.echo()
+    click.secho(
+        f"{installed} installed, {failed} failed, {len(results)} examined",
+        fg="red" if failed else "green",
+    )

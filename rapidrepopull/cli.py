@@ -16,6 +16,7 @@ import click
 
 from rapidrepopull import __version__, ui
 from rapidrepopull import doctor as doctor_mod
+from rapidrepopull import installer as installer_mod
 from rapidrepopull import manifest as manifest_mod
 from rapidrepopull.cloner import (
     DEFAULT_RETRIES,
@@ -253,6 +254,11 @@ def _collect(
     help="Print the tags the list defines, with repository counts, and exit.",
 )
 @click.option(
+    "--install",
+    is_flag=True,
+    help="After cloning, build repositories that declare how (opt-in; runs their build).",
+)
+@click.option(
     "--doctor",
     is_flag=True,
     help="Check every entry against GitHub and report what has rotted, then exit.",
@@ -313,6 +319,7 @@ def main(
     retries: int,
     tags: tuple[str, ...],
     list_tags: bool,
+    install: bool,
     doctor: bool,
     fix: bool,
     stale_days: int,
@@ -334,6 +341,7 @@ def main(
       rapidrepopull --update                 refresh everything already cloned
       rapidrepopull --tag wordlists,recon    clone one group only
       rapidrepopull --doctor                 check the list against GitHub
+      rapidrepopull --tag recon --install    clone one group and build it
       rapidrepopull -u https://example.com/awesome-ctf
     """
     if not no_banner:
@@ -410,6 +418,13 @@ def main(
         ui.info(f"{len(repos)} repositories would go to {output_dir.resolve()}:")
         for repo in repos:
             click.echo(f"  {repo.url(ssh=ssh)}")
+        if install:
+            present = [output_dir / r.name for r in repos if (output_dir / r.name).is_dir()]
+            if present:
+                results = installer_mod.install_all(present, dry_run=True)
+                ui.install_report(results, verbose=verbose)
+            else:
+                ui.info("Nothing is cloned yet, so there is nothing to install.")
         if prune:
             stale = manifest_mod.stale(
                 manifest_mod.load(output_dir), all_repos, output_dir=output_dir
@@ -466,6 +481,15 @@ def main(
                 ui.warn(f"Could not write the manifest: {exc}")
             else:
                 ui.report_changes(changes, verbose=verbose)
+
+    if install:
+        installed = [r.path for r in summary.results if r.ok and r.path is not None]
+        results = installer_mod.install_all(
+            installed,
+            workers=workers,
+            timeout=max(timeout, installer_mod.DEFAULT_INSTALL_TIMEOUT),
+        )
+        ui.install_report(results, verbose=verbose)
 
     if prune:
         stale = manifest_mod.stale(manifest, all_repos, output_dir=output_dir)
