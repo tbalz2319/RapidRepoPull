@@ -21,10 +21,25 @@ from rapidrepopull.cloner import (
     GitNotFound,
     clone_all,
 )
-from rapidrepopull.repolist import Repo, dedupe, default_list_path, load_list
+from rapidrepopull.repolist import (
+    Repo,
+    all_tags,
+    dedupe,
+    default_list_path,
+    filter_by_tags,
+    load_list,
+)
 from rapidrepopull.scraper import ScrapeError, scrape
 
 CONTEXT_SETTINGS = {"help_option_names": ["-h", "--help"], "max_content_width": 100}
+
+
+def _split_tags(values: tuple[str, ...]) -> list[str]:
+    """Accept both ``--tag a --tag b`` and ``--tag a,b``."""
+    out: list[str] = []
+    for value in values:
+        out.extend(part for part in value.split(",") if part.strip())
+    return out
 
 
 def _collect(
@@ -130,6 +145,18 @@ def _collect(
     show_default=True,
     help="Extra attempts for network failures.",
 )
+@click.option(
+    "--tag",
+    "tags",
+    multiple=True,
+    metavar="TAG",
+    help="Only handle repositories with this tag. Repeatable, or comma-separated.",
+)
+@click.option(
+    "--list-tags",
+    is_flag=True,
+    help="Print the tags the list defines, with repository counts, and exit.",
+)
 @click.option("-n", "--dry-run", is_flag=True, help="List what would be done and exit.")
 @click.option(
     "--save-list",
@@ -155,6 +182,8 @@ def main(
     update: bool,
     timeout: int,
     retries: int,
+    tags: tuple[str, ...],
+    list_tags: bool,
     dry_run: bool,
     save_list: Path | None,
     insecure: bool,
@@ -168,6 +197,7 @@ def main(
       rapidrepopull -f mytools.txt -t 32     use your own list, 32 at a time
       rapidrepopull --depth 1                shallow clones, much faster
       rapidrepopull --update                 refresh everything already cloned
+      rapidrepopull --tag wordlists,recon    clone one group only
       rapidrepopull -u https://example.com/awesome-ctf
     """
     if not no_banner:
@@ -196,6 +226,26 @@ def main(
     if not repos:
         ui.error("No repositories to process.")
         sys.exit(2)
+
+    if list_tags:
+        ui.show_tags(
+            all_tags(repos),
+            total=len(repos),
+            untagged=sum(1 for r in repos if not r.tags),
+        )
+        return
+
+    wanted = _split_tags(tags)
+    if wanted:
+        repos, unknown = filter_by_tags(repos, wanted)
+        if unknown:
+            ui.warn(f"No repository is tagged {', '.join(unknown)}.")
+        if not repos:
+            ui.error("No repositories matched the requested tags.")
+            ui.info("Run with --list-tags to see what is available.")
+            sys.exit(2)
+        if verbose:
+            ui.info(f"{len(repos)} repositories match {', '.join(sorted(wanted))}")
 
     if save_list is not None:
         save_list.parent.mkdir(parents=True, exist_ok=True)

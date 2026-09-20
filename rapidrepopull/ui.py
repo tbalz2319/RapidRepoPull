@@ -106,3 +106,24 @@ def note_problems(problems, source: str | None = None) -> None:
         warn(f"  line {lineno}: {text!r} -- {reason}")
     if len(problems) > 10:
         warn(f"  ... and {len(problems) - 10} more")
+
+
+def show_tags(counts: dict, *, total: int, untagged: int = 0) -> None:
+    """Print the tags a list defines and how many repositories carry each."""
+    if not counts:
+        warn("This list defines no tags.")
+        info("Add '# @tag: name' above a group of repositories to make one.")
+        return
+
+    width = max(len(tag) for tag in counts)
+    click.secho("Tags:", bold=True)
+    for tag, count in counts.items():
+        click.echo(f"  {click.style(tag.ljust(width), fg='cyan')}  {count}")
+
+    click.echo()
+    click.secho(f"{len(counts)} tags over {total} repositories", fg="bright_black")
+    if untagged:
+        click.secho(
+            f"{untagged} carry no tag, so --tag never selects them.",
+            fg="bright_black",
+        )

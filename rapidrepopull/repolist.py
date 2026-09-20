@@ -9,6 +9,20 @@ blank lines are ignored.  Every common way of writing a git remote is accepted::
     git@github.com:owner/repo.git
     ssh://git@gitlab.com/group/subgroup/repo.git
 
+Lines can be grouped into tags so that a subset can be cloned on its own::
+
+    # @tag: recon
+    https://github.com/laramies/theHarvester
+
+A ``@tag:`` directive applies to every repository after it until the next
+directive; an empty one (``# @tag:``) clears it.  A trailing comment on a
+repository line adds tags to that entry alone::
+
+    https://github.com/OJ/gobuster    # @tag: web
+
+Because directives are ordinary comments, a list using them still reads
+correctly in any tool that just skips ``#`` lines.
+
 Anything that cannot be understood is reported rather than raising, so one bad
 line never takes down a run -- the old version crashed with an ``AttributeError``
 on the first malformed entry.
@@ -18,7 +32,7 @@ from __future__ import annotations
 
 import re
 from collections.abc import Iterable, Sequence
-from dataclasses import dataclass
+from dataclasses import dataclass, replace
 from pathlib import Path
 
 DEFAULT_HOST = "github.com"
@@ -33,10 +47,29 @@ _URL_RE = re.compile(
 _FILE_RE = re.compile(r"^file://(?P<path>/.*)$")
 #: bare ``owner/repo`` (or ``group/subgroup/repo``) with no host of its own
 _SHORTHAND_RE = re.compile(r"^[\w.-]+(?:/[\w.-]+)+$")
+#: ``@tag: a, b`` inside a comment
+_TAG_RE = re.compile(r"@tags?\s*:\s*(?P<tags>[^#]*)", re.IGNORECASE)
 
 
 class RepoParseError(ValueError):
     """Raised when a line in a repository list cannot be read as a git remote."""
+
+
+def normalise_tag(tag: str) -> str:
+    """Fold a tag to its canonical form: lowercase, spaces and underscores to ``-``."""
+    return re.sub(r"[\s_]+", "-", tag.strip().lower()).strip("-")
+
+
+def parse_tag_directive(comment: str) -> list[str] | None:
+    """Read ``@tag: a, b`` out of a comment.
+
+    Returns the tags, an empty list for a directive that clears them, or
+    ``None`` when the comment carries no directive at all.
+    """
+    match = _TAG_RE.search(comment)
+    if not match:
+        return None
+    return [t for t in (normalise_tag(p) for p in match.group("tags").split(",")) if t]
 
 
 #: Host value used for repositories that live on this machine.
@@ -51,6 +84,13 @@ class Repo:
     path: str  # e.g. "owner/repo", or "group/subgroup/repo" on GitLab
     #: Set for remotes that cannot be rebuilt from host+path, such as ``file://``.
     explicit_url: str | None = None
+    #: Labels from ``@tag:`` directives, used by ``--tag`` to clone a subset.
+    tags: frozenset[str] = frozenset()
+
+    def with_tags(self, tags: Iterable[str]) -> Repo:
+        """A copy carrying ``tags`` in addition to the ones already set."""
+        merged = self.tags | frozenset(normalise_tag(t) for t in tags if normalise_tag(t))
+        return replace(self, tags=merged)
 
     @property
     def name(self) -> str:
@@ -146,20 +186,36 @@ def parse_lines(
     """
     repos: list[Repo] = []
     problems: list[tuple[int, str, str]] = []
-    seen = set()
+    index: dict[tuple, int] = {}
+    section_tags: list[str] = []
 
     for lineno, raw in enumerate(lines, start=1):
-        text = raw.split("#", 1)[0].strip()
+        text, _, comment = raw.partition("#")
+        text = text.strip()
+
         if not text:
+            # A comment-only line may still carry a directive for what follows.
+            directive = parse_tag_directive(comment)
+            if directive is not None:
+                section_tags = directive
             continue
+
         try:
             repo = parse_repo(text, default_host=default_host)
         except RepoParseError as exc:
             problems.append((lineno, text, str(exc)))
             continue
-        if repo.key in seen:
+
+        line_tags = parse_tag_directive(comment) or []
+        repo = repo.with_tags([*section_tags, *line_tags])
+
+        # A repository listed twice keeps the union of its tags rather than
+        # whichever set happened to come first.
+        previous = index.get(repo.key)
+        if previous is not None:
+            repos[previous] = repos[previous].with_tags(repo.tags)
             continue
-        seen.add(repo.key)
+        index[repo.key] = len(repos)
         repos.append(repo)
 
     return repos, problems
@@ -187,14 +243,45 @@ def default_list_path() -> Path:
 
 
 def dedupe(repos: Sequence[Repo]) -> list[Repo]:
-    """Drop duplicate repositories, preserving first-seen order."""
-    seen = set()
+    """Drop duplicate repositories, preserving first-seen order.
+
+    Duplicates keep the union of their tags, so the same repository appearing
+    in a file and in a scraped page ends up tagged with both.
+    """
+    index: dict[tuple, int] = {}
     out: list[Repo] = []
     for repo in repos:
-        if repo.key not in seen:
-            seen.add(repo.key)
+        previous = index.get(repo.key)
+        if previous is None:
+            index[repo.key] = len(out)
             out.append(repo)
+        elif repo.tags:
+            out[previous] = out[previous].with_tags(repo.tags)
     return out
+
+
+def all_tags(repos: Iterable[Repo]) -> dict[str, int]:
+    """Every tag in use, mapped to how many repositories carry it."""
+    counts: dict[str, int] = {}
+    for repo in repos:
+        for tag in repo.tags:
+            counts[tag] = counts.get(tag, 0) + 1
+    return dict(sorted(counts.items()))
+
+
+def filter_by_tags(repos: Sequence[Repo], tags: Iterable[str]) -> tuple[list[Repo], list[str]]:
+    """Keep repositories carrying any of ``tags``.
+
+    Returns ``(matching, unknown)``; ``unknown`` lists requested tags that no
+    repository has, so the caller can tell "none matched" from "you typed it
+    wrong".
+    """
+    wanted = {normalise_tag(t) for t in tags if normalise_tag(t)}
+    if not wanted:
+        return list(repos), []
+    known = set(all_tags(repos))
+    unknown = sorted(wanted - known)
+    return [r for r in repos if r.tags & wanted], unknown
 
 
 def write_list(repos: Iterable[Repo], path: Path, *, header: str | None = None) -> None:
