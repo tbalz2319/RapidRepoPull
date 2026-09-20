@@ -1,25 +1,11 @@
 #!/usr/bin/env bash
+# Install RapidRepoPull into a virtualenv without running it.
 
-# Arm all the requirements for the RapidRepoPull to execute
-green=$(tput setaf 2)
+source "$(dirname "$0")/_setup.sh"
+rrp_setup
 
-#Set virtual env with Python3
-echo "${green}Setting up Python3 virtual env"
-python3 -m venv venv
-
-# Activate virtual env
-echo "${green}Activating virtaul env"
-source venv/bin/activate
-
-#Update virtual pip version
-echo "${green}Upgrading virtual pip version"
-pip install --upgrade pip
-
-#Install requirements file
-pip install -r requirements.txt
-
-#Ensure virtualenv is active after this script exits
-echo "${green}Activating virtual env via Python script..."
-python activate_venv.py
-
-echo "RapidRepoPull is ARMED and ready for testing..."
+echo
+echo "${green}RapidRepoPull is ARMED and ready for testing.${reset}"
+echo "Activate the environment in your shell with:"
+echo "    source $(dirname "$0")/venv/bin/activate"
+echo "then run 'rapidrepopull --help' (or 'rrp --help')."

@@ -1,22 +1,21 @@
-#!/bin/bash
+#!/usr/bin/env bash
+# Fast-forward every repository that has already been cloned.
+#
+# Since 4.0 this is just RapidRepoPull's own --update mode, which pulls in
+# parallel and retries transient network failures.
 
-# Mass update all indivudual repos
+set -euo pipefail
 
-# To help set echo output in green
-green=$(tput setaf 2)
+root=$(cd "$(dirname "$0")" && pwd)
+target="${1:-repos}"
 
-# Save the name of all dirs to the dirs variable
-# The grep -v 'venv' will remove the venv directory as it does not have
-# Any repos the user would need to clone 
+if [ -x "${root}/venv/bin/rapidrepopull" ]; then
+    rrp="${root}/venv/bin/rapidrepopull"
+elif command -v rapidrepopull >/dev/null 2>&1; then
+    rrp=rapidrepopull
+else
+    echo "rapidrepopull is not installed. Run ./arm.sh first." >&2
+    exit 1
+fi
 
-dirs=`ls -d */ | grep -v 'venv'`
-
-for dir in $dirs     # list directories in the current folder
-do
-    #Display dir name and cd into dir and cd .. using a subshell
-    (
-    echo "${green}${dir}"
-    cd ${dir} || exit 
-    git pull
-    )
-done
+exec "${rrp}" --update -o "${target}" -v

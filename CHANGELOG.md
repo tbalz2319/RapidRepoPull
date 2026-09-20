@@ -1,3 +1,54 @@
+# 4.0.0
+
+Major rewrite. The single `rapid.py` script is now the `rapidrepopull` package,
+with a test suite and a real CLI.
+
+## Added
+- Installable package with `rapidrepopull` and `rrp` entry points (`pip install .`)
+- `--update` / `--no-update` to fast-forward repositories that are already cloned
+- `--depth` for shallow clones (much faster; SecLists alone saves ~1 GB)
+- `--ssh` to clone over SSH instead of HTTPS
+- `--output-dir` so clones no longer land in the source tree (defaults to `repos/`)
+- `--timeout` and `--retries`, with transient network failures retried and
+  permanent failures (auth, missing repo) failing fast instead of retrying
+- `--dry-run` and `--save-list` to inspect the resolved list without cloning
+- `--insecure` and `--no-banner`
+- 86 tests, ruff linting, and a GitHub Actions workflow running both on 3.9-3.13
+
+## Changed
+- Repository lists now accept `owner/repo`, HTTPS, `.git` and `git@` forms, plus
+  `#` comments and blank lines
+- The bundled list moved to `rapidrepopull/data/default.txt`; a `default.txt` in
+  the working directory still overrides it
+- Nonzero exit code when any clone fails, so the tool is usable in scripts
+- Thread limit capped at 64 (was unbounded); the default is now 16
+- Dockerfile builds the package on python:3.13-alpine and clones to a `/repos`
+  volume rather than cloning the source tree into itself
+- `clean.sh` no longer runs `rm -Rf -- */` in the source root, which would now
+  delete the package itself; it removes the output directory and asks first
+- `update_repos.sh` now delegates to `--update` instead of looping `git pull`
+
+## Fixed
+- Repositories that had moved or died in the bundled list: BloodHound to
+  SpecterOps, Empire to BC-SECURITY, CrackMapExec to Pennyw0rth/NetExec,
+  joomscan to OWASP, leonidas to ReversecLabs, Invoke-Phant0m to hlldz/Phant0m,
+  awesome-cybersecurity-blueteam to fabacab
+- Dropped three dead repositories: bwall/ExtractHosts, Frint0/email-enum,
+  vysecurity/ANGRYPUPPY
+- Added projectdiscovery/nuclei, j3ssie/Osmedeus and
+  chryzsh/awesome-windows-security, which the 3.2.3 notes claimed were in the
+  list but which were never actually committed to it
+
+## Removed
+- `requirements.txt` (dependencies are declared in `pyproject.toml`)
+- `activate_venv.py`, which could not activate a virtualenv in the parent shell
+- `.travis.yml`; CI runs on GitHub Actions
+
+## Compatibility
+- `python rapid.py ...` still works via a shim, and the legacy `--fileinput` and
+  `--thread` flag spellings are still accepted
+- Requires Python 3.9 or newer
+
 # 3.2.5
 - Fixing issue with giturlparse that using the ssh version of git instead of https
 - had to update all default.txt to change all existing repos to match ssh git urls instead of https

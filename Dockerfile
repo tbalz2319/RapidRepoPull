@@ -1,18 +1,18 @@
+FROM python:3.13-alpine
 
-FROM python:3.7-alpine
+LABEL org.opencontainers.image.title="rapidrepopull"
+LABEL org.opencontainers.image.source="https://github.com/tbalz2319/RapidRepoPull"
+LABEL org.opencontainers.image.authors="Talal Balouch"
+LABEL org.opencontainers.image.description="Clone and maintain a curated list of security repositories, in parallel."
 
-LABEL name rapid
-LABEL src "https://github.com/tbalz2319/RapidRepoPull"
-LABEL creator Tbalz
-LABEL dockerfile_maintenance khast3x
-LABEL desc "This program uses Python to clone multiple security related repos using threading and multiprocessing"
+RUN apk add --no-cache git openssh-client
 
-RUN apk add git && git clone https://github.com/tbalz2319/RapidRepoPull.git RapidRepoPull
-WORKDIR /RapidRepoPull
-RUN python3 -m venv venv
-RUN pip install -r requirements.txt
-RUN chmod +x boot.sh
+WORKDIR /src
+COPY pyproject.toml README.md LICENSE ./
+COPY rapidrepopull ./rapidrepopull
+RUN pip install --no-cache-dir .
 
-VOLUME [ "/RapidRepoPull" ]
-# ENTRYPOINT
-ENTRYPOINT [ "/RapidRepoPull/boot.sh" ]
+WORKDIR /repos
+VOLUME [ "/repos" ]
+ENTRYPOINT [ "rapidrepopull", "-o", "/repos" ]
+CMD [ "-v", "-t", "32" ]

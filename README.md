@@ -1,10 +1,11 @@
 # RapidRepoPull
 
 ![os](https://img.shields.io/badge/OS-Linux,%20macOS-yellow.svg)
-![rapidrepoinstallver](https://img.shields.io/badge/version-3.2.5-red.svg)
+![rapidrepoinstallver](https://img.shields.io/badge/version-4.0.0-red.svg)
+![python](https://img.shields.io/badge/python-3.9+-blue.svg)
 [![Twitter](https://img.shields.io/badge/twitter-@xtbalz-blue.svg)](https://twitter.com/xtbalz)
 [![CodeFactor](https://www.codefactor.io/repository/github/tbalz2319/rapidrepopull/badge)](https://www.codefactor.io/repository/github/tbalz2319/rapidrepopull)
-[![Build Status](https://travis-ci.com/tbalz2319/RapidRepoPull.svg?token=QYYAGdpg1FpLiGsNAJgb&branch=master)](https://travis-ci.com/tbalz2319/RapidRepoPull)
+[![tests](https://github.com/tbalz2319/RapidRepoPull/actions/workflows/tests.yml/badge.svg)](https://github.com/tbalz2319/RapidRepoPull/actions/workflows/tests.yml)
 
 ![alt text](https://github.com/tbalz2319/RapidRepoPull/blob/master/rrp.png)
 
@@ -14,155 +15,147 @@
 
 ## Description
 
-- This program uses Python to clone/maintain multiple security related repos using threading and multiprocessing
+RapidRepoPull clones and maintains a curated list of security repositories in
+parallel. Point it at the bundled list, your own text file, or any web page full
+of GitHub links, and it will clone everything at once -- then fast-forward it all
+later with a single `--update`.
 
-## Goal
-
-- The goal of this program is to quickly pull and install repos from its list
-
-## Use cases
-
-- Quickly install your favorite Security repos on a new system
-
-- Kick off multiple concurrent git clone tasks utilizing Python
-
-- Add/remove Security related Github repos to the default.xt list as needed in order to address     indivudual use case/project needs
-
-- Clone repos to review offline while traveling without internet connectivity
+It is particularly useful for the corpus repositories that no package manager
+covers: SecLists, PayloadsAllTheThings, Yara rules, payload collections and
+awesome-lists, which go stale silently and are tedious to refresh by hand.
 
 ## Requirements
 
-- This program was tested with Python3 version 3.8.9 64-bit
+- Python 3.9 or newer
+- `git` on your PATH
 
-- Ensure the Python3 virtual environment package is installed (Ubuntu)
+    ```sudo apt-get install git python3-venv```
 
-    ```sudo apt-get install python3-venv```
+## Install
 
-- Ensure git is installed (Ubuntu)
+```bash
+git clone https://github.com/tbalz2319/RapidRepoPull.git
+cd RapidRepoPull
+pip install .
+```
 
-    ```sudo apt-get install git```
+This puts two identical commands on your PATH: `rapidrepopull` and the short
+alias `rrp`.
 
-## Usage Option 1 Automatic (Docker)
+To install into a virtualenv instead, run `./arm.sh`, which creates `venv/`,
+installs the package and tells you how to activate it.
 
-### This option does not allow a user to specify the number of threads or a text file including additional repos
+## Usage
 
-- Clone code repo
+```
+Usage: rapidrepopull [OPTIONS]
 
-    ```git clone https://github.com/tbalz2319/RapidRepoPull.git```
+Options:
+  -v, --verbose                   Print detailed progress and timings.
+  -f, --file, --fileinput FILE    Text file listing repositories to clone
+                                  [default: the bundled list]
+  -u, --url TEXT                  Scrape a web page for repository links and
+                                  clone those.
+  -t, --threads, --thread INTEGER Concurrent git processes (1-64).  [default: 16]
+  -o, --output-dir DIRECTORY      Directory to clone into.  [default: repos]
+  --depth INTEGER                 Make shallow clones with this history depth
+                                  (much faster; try 1).
+  --ssh                           Clone over SSH instead of HTTPS.
+  --update / --no-update          Fast-forward repositories that are already
+                                  present.  [default: update]
+  --timeout INTEGER               Seconds before a single git operation is
+                                  abandoned.  [default: 600]
+  --retries INTEGER               Extra attempts for network failures.  [default: 2]
+  -n, --dry-run                   List what would be done and exit.
+  --save-list FILE                Write the resolved repository list to this file.
+  --insecure                      Skip TLS verification when scraping.
+  --no-banner                     Suppress the ASCII art header.
+  -V, --version                   Show the version and exit.
+  -h, --help                      Show this message and exit.
+```
 
-- Change directory into RapidRepoPull
+### Examples
 
-    ```cd RapidRepoPull```
+Clone the bundled list into `./repos`:
 
-- The script will run in a minimal Alpine Docker container (126 MB) and extract the dirs in the current working dir
+```bash
+rapidrepopull
+```
 
-    ```docker-compose up --build```
+Shallow clones, which is dramatically faster and smaller (SecLists alone is
+over a gigabyte with full history):
 
-## Usage Option 2 Local Install
+```bash
+rapidrepopull --depth 1
+```
 
-- Clone code repo
+Use your own list, 32 clones at a time:
 
-    ```git clone https://github.com/tbalz2319/RapidRepoPull.git```
+```bash
+rapidrepopull -f mytools.txt -t 32
+```
 
-- Change directory into RapidRepoPull
+Refresh everything already cloned:
 
-    ```cd RapidRepoPull```
+```bash
+rapidrepopull --update
+```
 
-- Execute the script below
+Scrape a page and clone every repository it links to:
 
-    ```./install.sh```
+```bash
+rapidrepopull -v -u https://apsdehal.in/awesome-ctf
+```
 
-## Usage Option 3 Manual
+See what would happen without touching the disk:
 
-- Clone code repo
+```bash
+rapidrepopull --dry-run
+```
 
-    ```git clone https://github.com/tbalz2319/RapidRepoPull.git```
+### Repository list format
 
-- Change directory into RapidRepoPull
+One repository per line. Blank lines and `#` comments are ignored, and any of
+these forms work:
 
-    ```cd RapidRepoPull```
+```
+owner/repo
+https://github.com/owner/repo
+https://github.com/owner/repo.git
+git@github.com:owner/repo.git
+```
 
-- Create a virtual Python3 environment to run this code
+The bundled list lives at `rapidrepopull/data/default.txt`. A `default.txt` in
+your working directory overrides it, or pass your own with `-f`.
 
-    ```python3 -m venv venv```
+## Docker
 
-- Activate the virual enivornment
+```bash
+docker-compose up --build
+```
 
-    ```source venv/bin/activate```
+Clones land in `./repos` on the host.
 
-- Install requirements
+## Helper scripts
 
-    ```pip install -r requirements.txt```
+| Script | |
+|---|---|
+| `./install.sh` | create a venv, install, and run against the default list |
+| `./arm.sh` | create a venv and install, without running |
+| `./option4.sh` | create a venv, install, and print the options |
+| `./update_repos.sh` | fast-forward everything already cloned |
+| `./clean.sh` | remove the `repos/` directory (asks first) |
 
-- Run program
+## Development
 
-    ```python rapid.py```
-
-## Usage Option 4 Custom
-
-- Clone code repo
-
-    ```git clone https://github.com/tbalz2319/RapidRepoPull.git```
-
-- Change directory into RapidRepoPull
-
-    ```cd RapidRepoPull```
-
-- Execute the script below
-
-    ```./option4.sh```
-
-- The script will exit while leaving the program in a python virtual env indicated by (venv)
-
-- Use the help menu below to navigate options
-
-    ```Usage: rapid.py [OPTIONS]```
-
-    ```test
-       Options:
-       -v, --verbose      Will print verbose messages.
-       -f, --file TEXT    Specify a text file with a list of user selected Github repos
-       -t, --thread TEXT  Specify the number of CPU threads to use
-       -u, --url TEXT     Specify a url to scrape containing Github repos to clone
-       --help             Show this message and exit.```
-
-- Example specifying a custom text file with a list of repos and how many threads the script should use
-
-- The text file must reside in the same directory as rapid.py and can be called anything
-
-- The example file "bob.txt" is there to testing an example purposes
-
-    ```python rapid.py -f bob.txt -t 25```
-
-- The example below with scrape a url containing Github to clone and provide verbose output, utilizing 75 threads
-
-   ```python rapid.py -v -u https://apsdehal.in/awesome-ctf -t 75```
-
-## Update Program
-
-- Run the following script
-
-    ```./update.sh```
-
-## Mass Update all existing repos
-
-- Run the command to maintain all existing repos by attempting to pull latest version
-
-    ```./update_repos.sh```
-
-## To do
-
-- Add error handling
-
-- Clean up code
-
-- Implement new features to enhance functionality via cli
+```bash
+pip install -e '.[dev]'
+pytest
+ruff check .
+```
 
 ## Contribute
 
-- The code for this project is constantly being cleaned up, refactored and refined, there are most likely lots of
-  bugs that need to fixed and identified.
-
-- Any help with the project is greatly appreciated
-
 - Pull requests welcomed
+- Repositories that have moved or gone dead are the most useful fixes; the
+  bundled list rots faster than the code does
