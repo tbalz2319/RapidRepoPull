@@ -6,6 +6,8 @@ the additions are all opt-in.
 
 from __future__ import annotations
 
+import contextlib
+import shutil
 import sys
 import time
 from pathlib import Path
@@ -13,6 +15,7 @@ from pathlib import Path
 import click
 
 from rapidrepopull import __version__, ui
+from rapidrepopull import manifest as manifest_mod
 from rapidrepopull.cloner import (
     DEFAULT_RETRIES,
     DEFAULT_TIMEOUT,
@@ -20,6 +23,7 @@ from rapidrepopull.cloner import (
     MAX_WORKERS,
     GitNotFound,
     clone_all,
+    find_git,
 )
 from rapidrepopull.repolist import (
     Repo,
@@ -40,6 +44,33 @@ def _split_tags(values: tuple[str, ...]) -> list[str]:
     for value in values:
         out.extend(part for part in value.split(",") if part.strip())
     return out
+
+
+def _prune(stale, *, output_dir: Path, assume_yes: bool) -> list:
+    """Offer to delete clones whose entries have left the list."""
+    if not stale:
+        ui.info("Nothing to prune.")
+        return []
+
+    ui.report_prune(stale, output_dir=output_dir, dry_run=False)
+    if not assume_yes and not click.confirm(
+        f"Remove {len(stale)} director{'y' if len(stale) == 1 else 'ies'}?",
+        default=False,
+    ):
+        ui.info("Left them in place.")
+        return []
+
+    removed = []
+    for entry in stale:
+        target = output_dir / entry.name
+        try:
+            shutil.rmtree(target)
+        except OSError as exc:
+            ui.warn(f"Could not remove {target}: {exc}")
+        else:
+            removed.append(entry)
+    ui.info(f"Removed {len(removed)} of {len(stale)}.")
+    return removed
 
 
 def _collect(
@@ -157,6 +188,22 @@ def _collect(
     is_flag=True,
     help="Print the tags the list defines, with repository counts, and exit.",
 )
+@click.option(
+    "--prune",
+    is_flag=True,
+    help="Remove clones whose entries have left the list (asks first).",
+)
+@click.option(
+    "-y",
+    "--yes",
+    is_flag=True,
+    help="Answer yes to confirmation prompts, for unattended runs.",
+)
+@click.option(
+    "--no-manifest",
+    is_flag=True,
+    help=f"Do not write {manifest_mod.MANIFEST_NAME} into the output directory.",
+)
 @click.option("-n", "--dry-run", is_flag=True, help="List what would be done and exit.")
 @click.option(
     "--save-list",
@@ -184,6 +231,9 @@ def main(
     retries: int,
     tags: tuple[str, ...],
     list_tags: bool,
+    prune: bool,
+    yes: bool,
+    no_manifest: bool,
     dry_run: bool,
     save_list: Path | None,
     insecure: bool,
@@ -235,6 +285,10 @@ def main(
         )
         return
 
+    # Pruning compares against the whole list, never the --tag subset: a
+    # tagged run must not decide that every other tag has "left the list".
+    all_repos = list(repos)
+
     wanted = _split_tags(tags)
     if wanted:
         repos, unknown = filter_by_tags(repos, wanted)
@@ -258,6 +312,11 @@ def main(
         ui.info(f"{len(repos)} repositories would go to {output_dir.resolve()}:")
         for repo in repos:
             click.echo(f"  {repo.url(ssh=ssh)}")
+        if prune:
+            stale = manifest_mod.stale(
+                manifest_mod.load(output_dir), all_repos, output_dir=output_dir
+            )
+            ui.report_prune(stale, output_dir=output_dir, dry_run=True)
         return
 
     ui.info(
@@ -292,6 +351,34 @@ def main(
         sys.exit(2)
 
     ui.summarise(summary, output_dir=output_dir.resolve(), elapsed=time.monotonic() - started)
+
+    manifest = manifest_mod.load(output_dir)
+    if not no_manifest:
+        try:
+            git = find_git()
+        except GitNotFound:  # pragma: no cover - clone_all would have failed first
+            git = None
+        if git is not None:
+            changes = manifest_mod.record(
+                manifest, summary.results, git=git, output_dir=output_dir
+            )
+            try:
+                manifest.save()
+            except OSError as exc:
+                ui.warn(f"Could not write the manifest: {exc}")
+            else:
+                ui.report_changes(changes, verbose=verbose)
+
+    if prune:
+        stale = manifest_mod.stale(manifest, all_repos, output_dir=output_dir)
+        removed = _prune(stale, output_dir=output_dir, assume_yes=yes)
+        if removed:
+            for entry in removed:
+                manifest.entries.pop(entry.slug, None)
+            if not no_manifest:
+                with contextlib.suppress(OSError):
+                    manifest.save()
+
     sys.exit(summary.exit_code)
 
 

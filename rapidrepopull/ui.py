@@ -127,3 +127,39 @@ def show_tags(counts: dict, *, total: int, untagged: int = 0) -> None:
             f"{untagged} carry no tag, so --tag never selects them.",
             fg="bright_black",
         )
+
+
+def report_changes(changes, *, verbose: bool = False) -> None:
+    """Say which repositories moved since the last run."""
+    if not changes:
+        return
+
+    new = [c for c in changes if c.is_new]
+    moved = [c for c in changes if not c.is_new]
+
+    parts = []
+    if new:
+        parts.append(f"{len(new)} new")
+    if moved:
+        parts.append(f"{len(moved)} updated")
+    info(f"Commits recorded: {', '.join(parts)}")
+
+    shown = moved if not verbose else changes
+    for change in shown[:20]:
+        click.secho(f"    {change.slug}: {change.short()}", fg="bright_black")
+    if len(shown) > 20:
+        click.secho(f"    ... and {len(shown) - 20} more", fg="bright_black")
+
+
+def report_prune(stale, *, output_dir: Path, dry_run: bool = False) -> None:
+    """List clones that are no longer in the repository list."""
+    if not stale:
+        if dry_run:
+            info("Nothing to prune.")
+        return
+
+    click.echo()
+    verb = "would be removed" if dry_run else "are no longer in the list"
+    click.secho(f"{len(stale)} clone(s) {verb}:", fg="yellow", bold=True)
+    for entry in stale:
+        click.echo(f"  {output_dir / entry.name}  ({entry.slug})")
