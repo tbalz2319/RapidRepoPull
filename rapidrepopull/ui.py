@@ -163,3 +163,72 @@ def report_prune(stale, *, output_dir: Path, dry_run: bool = False) -> None:
     click.secho(f"{len(stale)} clone(s) {verb}:", fg="yellow", bold=True)
     for entry in stale:
         click.echo(f"  {output_dir / entry.name}  ({entry.slug})")
+
+
+_DOCTOR_STYLE = {
+    "missing": ("[x]", "red"),
+    "private": ("[x]", "red"),
+    "unreachable": ("[x]", "red"),
+    "renamed": ("[>]", "yellow"),
+    "archived": ("[#]", "yellow"),
+    "stale": ("[~]", "yellow"),
+    "rate-limited": ("[!]", "magenta"),
+    "error": ("[!]", "magenta"),
+    "ok": ("[+]", "green"),
+}
+
+_DOCTOR_HEADING = {
+    "missing": "Gone from GitHub",
+    "private": "Private or blocked",
+    "unreachable": "Unreachable",
+    "renamed": "Moved",
+    "archived": "Archived upstream",
+    "stale": "No recent activity",
+    "rate-limited": "Not checked (rate limited)",
+    "error": "Could not be checked",
+    "ok": "Healthy",
+}
+
+
+def doctor_report(grouped: dict, *, total: int, show_ok: bool = False) -> None:
+    """Print the doctor's findings, grouped by what it found."""
+    click.echo()
+    problems = 0
+
+    for state, findings in grouped.items():
+        if state.value == "ok" and not show_ok:
+            continue
+        marker, colour = _DOCTOR_STYLE.get(state.value, ("[?]", "white"))
+        heading = _DOCTOR_HEADING.get(state.value, state.value)
+        click.secho(f"{heading} ({len(findings)})", fg=colour, bold=True)
+        for finding in findings:
+            line = f"  {click.style(marker, fg=colour)} {finding.repo}"
+            if finding.detail:
+                line += click.style(f" -- {finding.detail}", fg="bright_black")
+            click.echo(line)
+        click.echo()
+        if state.value != "ok":
+            problems += len(findings)
+
+    healthy = total - problems
+    if problems:
+        click.secho(
+            f"{problems} of {total} entries need attention ({healthy} healthy).",
+            fg="yellow",
+            bold=True,
+        )
+    else:
+        click.secho(f"All {total} entries look healthy.", fg="green", bold=True)
+
+
+def doctor_fixes(fixes, *, path) -> None:
+    """Print what --fix changed."""
+    if not fixes:
+        info("Nothing in the list needed rewriting.")
+        return
+    click.echo()
+    click.secho(f"Rewrote {len(fixes)} line(s) in {path}:", fg="green", bold=True)
+    for fix in fixes:
+        click.secho(f"  line {fix.lineno}:", fg="bright_black")
+        click.secho(f"    - {fix.before.strip()}", fg="red")
+        click.secho(f"    + {fix.after.strip()}", fg="green")

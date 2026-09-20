@@ -15,6 +15,7 @@ from pathlib import Path
 import click
 
 from rapidrepopull import __version__, ui
+from rapidrepopull import doctor as doctor_mod
 from rapidrepopull import manifest as manifest_mod
 from rapidrepopull.cloner import (
     DEFAULT_RETRIES,
@@ -44,6 +45,69 @@ def _split_tags(values: tuple[str, ...]) -> list[str]:
     for value in values:
         out.extend(part for part in value.split(",") if part.strip())
     return out
+
+
+def _doctor(
+    repos: list[Repo],
+    *,
+    file_path: Path | None,
+    fix: bool,
+    stale_days: int,
+    workers: int,
+    timeout: int,
+    verbose: bool,
+) -> None:
+    """Check the list against GitHub and optionally write the answers back."""
+    token = doctor_mod.find_token()
+    if verbose:
+        ui.info(
+            "Checking against the GitHub API "
+            + ("with a token" if token else "unauthenticated (60 calls an hour)")
+        )
+    if not token and len(repos) > 50:
+        ui.warn(
+            f"{len(repos)} entries but no token: set GITHUB_TOKEN to avoid the "
+            "unauthenticated rate limit of 60 calls an hour."
+        )
+
+    try:
+        git = find_git()
+    except GitNotFound as exc:
+        ui.error(str(exc))
+        sys.exit(2)
+
+    ui.info(f"Checking {len(repos)} repositories...")
+    findings = doctor_mod.check_all(
+        repos,
+        git=git,
+        token=token,
+        stale_days=stale_days,
+        workers=min(workers, doctor_mod.DEFAULT_CHECK_WORKERS),
+        timeout=timeout if timeout < 60 else doctor_mod.DEFAULT_CHECK_TIMEOUT,
+    )
+
+    grouped = doctor_mod.summarise(findings)
+    ui.doctor_report(grouped, total=len(findings), show_ok=verbose)
+
+    limited = [f for f in findings if f.state is doctor_mod.State.RATE_LIMITED]
+    if limited:
+        ui.warn(
+            f"{len(limited)} entries could not be checked because of the GitHub "
+            "rate limit; their results are not trustworthy."
+        )
+
+    if fix:
+        if file_path is None:
+            ui.error("--fix needs a list file; pass -f, or copy the bundled list first.")
+            sys.exit(2)
+        fixes = doctor_mod.apply_fixes(file_path, findings)
+        ui.doctor_fixes(fixes, path=file_path)
+
+    # Entries that cannot be cloned at all fail the command, so a scheduled
+    # --doctor run is a useful CI check. Renames, archives and staleness are
+    # advisory: they still clone, and --fix handles them.
+    fatal = [f for f in findings if f.state.is_fatal]
+    sys.exit(1 if fatal else 0)
 
 
 def _prune(stale, *, output_dir: Path, assume_yes: bool) -> list:
@@ -189,6 +253,24 @@ def _collect(
     help="Print the tags the list defines, with repository counts, and exit.",
 )
 @click.option(
+    "--doctor",
+    is_flag=True,
+    help="Check every entry against GitHub and report what has rotted, then exit.",
+)
+@click.option(
+    "--fix",
+    is_flag=True,
+    help="With --doctor, write the findings back into the list file.",
+)
+@click.option(
+    "--stale-days",
+    type=int,
+    default=doctor_mod.DEFAULT_STALE_DAYS,
+    show_default=True,
+    metavar="DAYS",
+    help="With --doctor, flag repositories with no push in this many days.",
+)
+@click.option(
     "--prune",
     is_flag=True,
     help="Remove clones whose entries have left the list (asks first).",
@@ -231,6 +313,9 @@ def main(
     retries: int,
     tags: tuple[str, ...],
     list_tags: bool,
+    doctor: bool,
+    fix: bool,
+    stale_days: int,
     prune: bool,
     yes: bool,
     no_manifest: bool,
@@ -248,6 +333,7 @@ def main(
       rapidrepopull --depth 1                shallow clones, much faster
       rapidrepopull --update                 refresh everything already cloned
       rapidrepopull --tag wordlists,recon    clone one group only
+      rapidrepopull --doctor                 check the list against GitHub
       rapidrepopull -u https://example.com/awesome-ctf
     """
     if not no_banner:
@@ -300,6 +386,18 @@ def main(
             sys.exit(2)
         if verbose:
             ui.info(f"{len(repos)} repositories match {', '.join(sorted(wanted))}")
+
+    if doctor:
+        _doctor(
+            repos,
+            file_path=file_path,
+            fix=fix,
+            stale_days=stale_days,
+            workers=workers,
+            timeout=timeout,
+            verbose=verbose,
+        )
+        return
 
     if save_list is not None:
         save_list.parent.mkdir(parents=True, exist_ok=True)
