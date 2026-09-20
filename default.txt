@@ -1,7 +1,0 @@
-git@github.com:BloodHoundAD/BloodHound.git
-git@github.com:GhostPack/Seatbelt.git
-git@github.com:GhostPack/SharpUp.git
-git@github.com:yeyintminthuhtut/Awesome-Red-Teaming.git
-git@github.com:byt3bl33d3r/DeathStar.git
-git@github.com:yeyintminthuhtut/Awesome-Red-Teaming.git
-git@github.com:danielmiessler/SecLists.git

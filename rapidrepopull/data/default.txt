@@ -1,0 +1,95 @@
+# RapidRepoPull -- default repository list
+#
+# One repository per line. '#' starts a comment, blank lines are ignored.
+# Any of these forms work:
+#
+#   owner/repo
+#   https://github.com/owner/repo
+#   https://github.com/owner/repo.git
+#   git@github.com:owner/repo.git
+#
+# Verified against GitHub on 2026-09-20. Repositories that had been deleted
+# were removed, and renamed/superseded ones were repointed (see CHANGELOG).
+
+# --- Wordlists, payloads and signatures -----------------------------------
+https://github.com/danielmiessler/SecLists.git
+https://github.com/swisskyrepo/PayloadsAllTheThings.git
+https://github.com/1N3/IntruderPayloads.git
+https://github.com/foospidy/payloads.git
+https://github.com/Yara-Rules/rules.git
+
+# --- Recon and OSINT -------------------------------------------------------
+https://github.com/laramies/theHarvester.git
+https://github.com/s0md3v/Photon.git
+https://github.com/tomnomnom/assetfinder.git
+https://github.com/tomnomnom/httprobe.git
+https://github.com/robertdavidgraham/masscan.git
+https://github.com/rvrsh3ll/FindFrontableDomains.git
+https://github.com/needmorecowbell/Hamburglar.git
+https://github.com/emtunc/SlackPirate.git
+https://github.com/SpiderLabs/scavenger.git
+https://github.com/projectdiscovery/nuclei.git
+
+# --- Web application testing ----------------------------------------------
+https://github.com/commixproject/commix.git
+https://github.com/OJ/gobuster.git
+https://github.com/OWASP/joomscan.git
+https://github.com/1N3/BlackWidow.git
+https://github.com/evyatarmeged/Raccoon.git
+https://github.com/skavngr/rapidscan.git
+https://github.com/SolomonSklash/chomp-scan.git
+https://github.com/Grunny/zap-cli.git
+https://github.com/pavanw3b/sh00t.git
+https://github.com/codingo/Interlace.git
+
+# --- Active Directory and Windows -----------------------------------------
+https://github.com/SpecterOps/BloodHound.git
+https://github.com/Pennyw0rth/NetExec.git
+https://github.com/GhostPack/Seatbelt.git
+https://github.com/GhostPack/SharpUp.git
+https://github.com/dirkjanm/ldapdomaindump.git
+https://github.com/cddmp/enum4linux-ng.git
+https://github.com/bitsadmin/wesng.git
+https://github.com/api0cradle/UltimateAppLockerByPassList.git
+https://github.com/Cn33liz/p0wnedShell.git
+https://github.com/hlldz/Phant0m.git
+
+# --- Command and control / post-exploitation ------------------------------
+https://github.com/BC-SECURITY/Empire.git
+https://github.com/byt3bl33d3r/DeathStar.git
+https://github.com/harleyQu1nn/AggressorScripts.git
+https://github.com/tevora-threat/PowerView3-Aggressor.git
+https://github.com/paranoidninja/CarbonCopy.git
+https://github.com/Coalfire-Research/pymetasploit3.git
+
+# --- Linux and privilege escalation ---------------------------------------
+https://github.com/rebootuser/LinEnum.git
+https://github.com/jondonas/linux-exploit-suggester-2.git
+https://github.com/lanjelot/patator.git
+
+# --- Adversary emulation and blue team ------------------------------------
+https://github.com/redcanaryco/chain-reactor.git
+https://github.com/ReversecLabs/leonidas.git
+https://github.com/trustedsec/HoneyBadger.git
+
+# --- Frameworks and automation --------------------------------------------
+https://github.com/trustedsec/ptf.git
+https://github.com/21y4d/nmapAutomator.git
+https://github.com/j3ssie/Osmedeus.git
+
+# --- Reading lists ---------------------------------------------------------
+https://github.com/yeyintminthuhtut/Awesome-Red-Teaming.git
+https://github.com/fabacab/awesome-cybersecurity-blueteam.git
+https://github.com/JohnHammond/ctf-katana.git
+https://github.com/chryzsh/awesome-windows-security.git
+
+# --- Archived upstream, kept for reference --------------------------------
+# These still clone, but their authors have stopped maintaining them.
+# Uncomment to include them in a run.
+#https://github.com/vysecurity/ANGRYPUPPY.git
+#https://github.com/byt3bl33d3r/CrackMapExec.git    # superseded by Pennyw0rth/NetExec
+#https://github.com/EmpireProject/Empire.git        # superseded by BC-SECURITY/Empire
+
+# --- Removed: no longer exist on GitHub (404 as of 2026-09-20) ------------
+#https://github.com/bwall/ExtractHosts.git
+#https://github.com/Frint0/email-enum.git

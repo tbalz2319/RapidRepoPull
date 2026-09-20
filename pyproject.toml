@@ -1,0 +1,67 @@
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "rapidrepopull"
+version = "4.0.0"
+description = "Clone and maintain a curated list of security repositories, in parallel."
+readme = "README.md"
+requires-python = ">=3.9"
+license = { file = "LICENSE" }
+authors = [{ name = "Talal Balouch" }]
+keywords = ["security", "git", "clone", "red-team", "pentest", "recon"]
+classifiers = [
+    "Development Status :: 5 - Production/Stable",
+    "Environment :: Console",
+    "Intended Audience :: Information Technology",
+    "License :: OSI Approved :: MIT License",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3 :: Only",
+    "Programming Language :: Python :: 3.9",
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+    "Programming Language :: Python :: 3.13",
+    "Topic :: Security",
+    "Topic :: Software Development :: Version Control :: Git",
+]
+dependencies = [
+    "click>=8.1,<9",
+    "requests>=2.32,<3",
+    "beautifulsoup4>=4.12,<5",
+]
+
+[project.optional-dependencies]
+dev = [
+    "pytest>=8.0",
+    "pytest-cov>=5.0",
+    "ruff>=0.6",
+]
+
+[project.urls]
+Homepage = "https://github.com/tbalz2319/RapidRepoPull"
+Source = "https://github.com/tbalz2319/RapidRepoPull"
+Changelog = "https://github.com/tbalz2319/RapidRepoPull/blob/master/CHANGELOG.md"
+Issues = "https://github.com/tbalz2319/RapidRepoPull/issues"
+
+[project.scripts]
+rapidrepopull = "rapidrepopull.cli:main"
+rrp = "rapidrepopull.cli:main"
+
+[tool.setuptools.packages.find]
+include = ["rapidrepopull*"]
+
+[tool.setuptools.package-data]
+rapidrepopull = ["data/*.txt"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+addopts = "-ra"
+
+[tool.ruff]
+target-version = "py39"
+line-length = 100
+
+[tool.ruff.lint]
+select = ["E", "F", "W", "I", "UP", "B", "C4", "SIM", "RUF"]
