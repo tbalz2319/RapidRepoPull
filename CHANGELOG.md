@@ -1,3 +1,43 @@
+# 4.2.0
+
+Curation pass. 4.1 added `--doctor`; running it showed that half the bundled
+list had not been touched in years, so this release acts on that.
+
+## Removed from the default list
+Sixteen entries are now commented out at the bottom of `default.txt` with a
+reason and a last-commit date. They still clone if uncommented.
+
+- Superseded, with the replacement in the active list: `rebootuser/LinEnum`
+  (2020-01), `jondonas/linux-exploit-suggester-2` (2022-01),
+  `1N3/IntruderPayloads` (2021-09), `foospidy/payloads` (2021-04),
+  `Grunny/zap-cli` (2018-12), `skavngr/rapidscan` (2023-08)
+- Abandoned with no successor: `tevora-threat/PowerView3-Aggressor` (2018-07),
+  `Cn33liz/p0wnedShell` (2018-09), `SpiderLabs/scavenger` (2018-12),
+  `paranoidninja/CarbonCopy` (2019-06), `trustedsec/HoneyBadger` (2019-11),
+  `SolomonSklash/chomp-scan` (2020-04), `rvrsh3ll/FindFrontableDomains`
+  (2021-05, domain fronting is blocked by the major CDNs),
+  `byt3bl33d3r/DeathStar` (2023-12, drives the Empire that moved)
+- Archived by their authors: `hlldz/Phant0m`, `chryzsh/awesome-windows-security`
+
+## Added
+- `peass-ng/PEASS-ng` (linpeas/winpeas), replacing LinEnum
+- `mzet-/linux-exploit-suggester`, replacing linux-exploit-suggester-2
+- `projectdiscovery/httpx`, alongside httprobe
+
+## Kept deliberately
+Finished-but-standard tools are not dropped just for being old:
+`tomnomnom/assetfinder` and `httprobe`, `GhostPack/SharpUp`,
+`Coalfire-Research/pymetasploit3`, `OWASP/joomscan`, `21y4d/nmapAutomator`.
+They are small, they still work, and nothing has replaced them.
+
+## Notes
+- The list is 41 entries, down from 54, and every one was confirmed reachable
+- The dates above are each project's last commit on its default branch, which
+  is not GitHub's `pushed_at`. `pushed_at` moves on a push to any branch, and
+  it made several of these look years fresher than they were -- LinEnum
+  reported as 3.0 years idle when its default branch had not moved since
+  2020-01
+
 # 4.1.0
 
 Four additions aimed at the parts of 4.0 that were still weak: the list had

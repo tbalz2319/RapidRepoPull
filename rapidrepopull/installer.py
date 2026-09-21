@@ -2,11 +2,11 @@
 
 Cloning a security tool is not the same as being able to run it. Most of these
 repositories need a build or a dependency install first, and doing that by hand
-54 times is the gap between "cloned" and "usable".
+dozens of times is the gap between "cloned" and "usable".
 
 What this does NOT do is run whatever the repository suggests. An ``install.sh``
 from a freshly cloned repository is arbitrary code from the internet, and a tool
-that executes 54 of them unattended is a supply-chain incident waiting to
+that executes dozens of them unattended is a supply-chain incident waiting to
 happen. Only declarative, recognised build systems are used:
 
 ===================  ============================================

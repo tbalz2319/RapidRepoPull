@@ -15,29 +15,33 @@
 #
 # 'rapidrepopull --list-tags' prints the groups this file defines.
 #
-# Verified against GitHub on 2026-09-20. Repositories that had been deleted
-# were removed, and renamed/superseded ones were repointed (see CHANGELOG).
+# Curation rule: an entry earns its place by being maintained OR by being
+# finished and still standard. Abandoned tools and ones with a living
+# successor are moved to the bottom of this file with a reason, not deleted,
+# so nobody re-adds them a year from now.
+#
+# Checked on 2026-09-20 with 'rapidrepopull --doctor', and the dates below are
+# each project's last commit on its default branch. Note that GitHub's
+# pushed_at is NOT that date -- it moves on a push to any branch, which made
+# several of these look years fresher than they are.
 
 # --- Wordlists, payloads and signatures -----------------------------------
 # @tag: wordlists
 https://github.com/danielmiessler/SecLists.git
 https://github.com/swisskyrepo/PayloadsAllTheThings.git
-https://github.com/1N3/IntruderPayloads.git
-https://github.com/foospidy/payloads.git
 https://github.com/Yara-Rules/rules.git
 
 # --- Recon and OSINT -------------------------------------------------------
 # @tag: recon
 https://github.com/laramies/theHarvester.git
 https://github.com/s0md3v/Photon.git
+https://github.com/projectdiscovery/nuclei.git
+https://github.com/projectdiscovery/httpx.git
 https://github.com/tomnomnom/assetfinder.git
 https://github.com/tomnomnom/httprobe.git
 https://github.com/robertdavidgraham/masscan.git
-https://github.com/rvrsh3ll/FindFrontableDomains.git
 https://github.com/needmorecowbell/Hamburglar.git
 https://github.com/emtunc/SlackPirate.git
-https://github.com/SpiderLabs/scavenger.git
-https://github.com/projectdiscovery/nuclei.git
 
 # --- Web application testing ----------------------------------------------
 # @tag: web
@@ -46,9 +50,6 @@ https://github.com/OJ/gobuster.git
 https://github.com/OWASP/joomscan.git
 https://github.com/1N3/BlackWidow.git
 https://github.com/evyatarmeged/Raccoon.git
-https://github.com/skavngr/rapidscan.git
-https://github.com/SolomonSklash/chomp-scan.git
-https://github.com/Grunny/zap-cli.git
 https://github.com/pavanw3b/sh00t.git
 https://github.com/codingo/Interlace.git
 
@@ -62,29 +63,23 @@ https://github.com/dirkjanm/ldapdomaindump.git
 https://github.com/cddmp/enum4linux-ng.git
 https://github.com/bitsadmin/wesng.git
 https://github.com/api0cradle/UltimateAppLockerByPassList.git
-https://github.com/Cn33liz/p0wnedShell.git
-https://github.com/hlldz/Phant0m.git
 
 # --- Command and control / post-exploitation ------------------------------
 # @tag: c2
 https://github.com/BC-SECURITY/Empire.git
-https://github.com/byt3bl33d3r/DeathStar.git
 https://github.com/harleyQu1nn/AggressorScripts.git
-https://github.com/tevora-threat/PowerView3-Aggressor.git
-https://github.com/paranoidninja/CarbonCopy.git
 https://github.com/Coalfire-Research/pymetasploit3.git
 
 # --- Linux and privilege escalation ---------------------------------------
 # @tag: linux
-https://github.com/rebootuser/LinEnum.git
-https://github.com/jondonas/linux-exploit-suggester-2.git
+https://github.com/peass-ng/PEASS-ng.git
+https://github.com/mzet-/linux-exploit-suggester.git
 https://github.com/lanjelot/patator.git
 
 # --- Adversary emulation and blue team ------------------------------------
 # @tag: blueteam
 https://github.com/redcanaryco/chain-reactor.git
 https://github.com/ReversecLabs/leonidas.git
-https://github.com/trustedsec/HoneyBadger.git
 
 # --- Frameworks and automation --------------------------------------------
 # @tag: frameworks
@@ -97,17 +92,41 @@ https://github.com/j3ssie/Osmedeus.git
 https://github.com/yeyintminthuhtut/Awesome-Red-Teaming.git
 https://github.com/fabacab/awesome-cybersecurity-blueteam.git
 https://github.com/JohnHammond/ctf-katana.git
-https://github.com/chryzsh/awesome-windows-security.git
 
-# --- Archived upstream, kept for reference --------------------------------
+# ==========================================================================
+# Not cloned by default
+# ==========================================================================
 # @tag:
-# These still clone, but their authors have stopped maintaining them.
-# Uncomment to include them in a run.
-#https://github.com/vysecurity/ANGRYPUPPY.git
-#https://github.com/byt3bl33d3r/CrackMapExec.git    # superseded by Pennyw0rth/NetExec
-#https://github.com/EmpireProject/Empire.git        # superseded by BC-SECURITY/Empire
+#
+# These still clone. They are disabled because they are abandoned, or because
+# something maintained does the same job. The date is the last commit on the
+# default branch. Uncomment any you still want.
 
-# --- Removed: no longer exist on GitHub (404 as of 2026-09-20) ------------
-# @tag:
+# --- Superseded: the replacement is in the active list above --------------
+#https://github.com/rebootuser/LinEnum.git                  # 2020-01, use peass-ng/PEASS-ng
+#https://github.com/jondonas/linux-exploit-suggester-2.git  # 2022-01, use mzet-/linux-exploit-suggester
+#https://github.com/1N3/IntruderPayloads.git                # 2021-09, covered by SecLists + PayloadsAllTheThings
+#https://github.com/foospidy/payloads.git                   # 2021-04, covered by SecLists + PayloadsAllTheThings
+#https://github.com/byt3bl33d3r/CrackMapExec.git            # archived, use Pennyw0rth/NetExec
+#https://github.com/EmpireProject/Empire.git                # archived, use BC-SECURITY/Empire
+#https://github.com/Grunny/zap-cli.git                      # 2018-12, use ZAP's own Automation Framework
+#https://github.com/skavngr/rapidscan.git                   # 2023-08, wraps tools already listed above
+
+# --- Abandoned: no maintained successor -----------------------------------
+#https://github.com/tevora-threat/PowerView3-Aggressor.git  # 2018-07
+#https://github.com/Cn33liz/p0wnedShell.git                 # 2018-09
+#https://github.com/SpiderLabs/scavenger.git                # 2018-12
+#https://github.com/paranoidninja/CarbonCopy.git            # 2019-06
+#https://github.com/trustedsec/HoneyBadger.git              # 2019-11
+#https://github.com/SolomonSklash/chomp-scan.git            # 2020-04
+#https://github.com/rvrsh3ll/FindFrontableDomains.git       # 2021-05, domain fronting is blocked by the major CDNs
+#https://github.com/byt3bl33d3r/DeathStar.git               # 2023-12, drives EmpireProject/Empire, which moved
+#https://github.com/vysecurity/ANGRYPUPPY.git               # abandoned
+
+# --- Archived by their authors --------------------------------------------
+#https://github.com/hlldz/Phant0m.git                       # 2023-09
+#https://github.com/chryzsh/awesome-windows-security.git    # 2018-11
+
+# --- Gone from GitHub entirely (404 as of 2026-09-20) ---------------------
 #https://github.com/bwall/ExtractHosts.git
 #https://github.com/Frint0/email-enum.git

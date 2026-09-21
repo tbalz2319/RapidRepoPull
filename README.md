@@ -1,7 +1,7 @@
 # RapidRepoPull
 
 ![os](https://img.shields.io/badge/OS-Linux,%20macOS-yellow.svg)
-![rapidrepoinstallver](https://img.shields.io/badge/version-4.1.0-red.svg)
+![rapidrepoinstallver](https://img.shields.io/badge/version-4.2.0-red.svg)
 ![python](https://img.shields.io/badge/python-3.9+-blue.svg)
 [![Twitter](https://img.shields.io/badge/twitter-@xtbalz-blue.svg)](https://twitter.com/xtbalz)
 [![CodeFactor](https://www.codefactor.io/repository/github/tbalz2319/rapidrepopull/badge)](https://www.codefactor.io/repository/github/tbalz2319/rapidrepopull)
@@ -27,6 +27,12 @@ awesome-lists, which go stale silently and are tedious to refresh by hand.
 It also knows when its own list has rotted. `--doctor` checks every entry
 against GitHub and reports what has been renamed, archived or deleted, and
 `--fix` writes the answers back.
+
+The bundled list is curated on one rule: an entry earns its place by being
+maintained, or by being finished and still standard. Abandoned tools and ones
+with a living successor sit commented out at the bottom of the list with a
+reason and a date, so they are easy to re-enable and hard to re-add by
+accident.
 
 ## Requirements
 
@@ -124,7 +130,7 @@ rapidrepopull --dry-run
 
 ### Cloning a subset
 
-The bundled list is 54 repositories and several gigabytes; you rarely want all
+The bundled list is 41 repositories and several gigabytes; you rarely want all
 of it on one box. Entries are grouped into tags:
 
 ```bash
@@ -179,7 +185,7 @@ subset, so a tagged run cannot delete another tag's clones.
 | `package.json` | `npm install --omit=dev`, inside the clone |
 
 It deliberately does **not** run a repository's own `install.sh`. That is
-arbitrary code from the internet, and running 54 of them unattended is a
+arbitrary code from the internet, and running dozens of them unattended is a
 supply-chain incident waiting to happen. Makefiles, cmake, gradle, maven, cargo
 and Visual Studio projects are reported as needing manual steps rather than
 guessed at, and pure-data repositories are reported as having nothing to build.
